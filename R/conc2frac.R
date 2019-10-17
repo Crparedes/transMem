@@ -8,7 +8,7 @@
 #' @export
 #'
 
-conc2frac <- function(feed, strip, time = NULL){
+conc2frac <- function(feed, strip, time = NULL, correct.strip = FALSE){
   name <- deparse(substitute(feed))
 
   if (grepl('ConcFeed', name, ignore.case = TRUE)) {
@@ -21,6 +21,10 @@ conc2frac <- function(feed, strip, time = NULL){
 
   strip <- strip / feed[1]
   feed  <- feed / feed[1]
+
+  if (correct.strip) {
+    strip <- strip - strip[1]
+  }
 
   DF <- data.frame(Time = rep(time, 2), Phase = rep(c('Feed', 'Strip'), each = length(time)),
                    Fraction = c(feed, strip))

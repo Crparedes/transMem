@@ -7,7 +7,7 @@
 #' @param Conc.S   ...only used if \code{planar} is set to
 #'
 #' @return Numeric vector of concentrations
-#' @import cmna quadratic2
+#' @importFrom cmna quadratic2
 #' @export
 #'
 

@@ -4,8 +4,6 @@
 #'                  concentrations and the signals, respectively
 #' @param order     regression curve order, 1 for linear (default), 2 for quadratic.
 #'                  More options will be aviliable soon
-#' @param autoload  logic. If \code{TRUE} (default) the model will be automatically
-#'                  loaded into the environment
 #' @param badpoint  numeric vector with the points to be ignored in the regresión
 #' @param intercept logical. if \code{TRUE} (default) the intercept is calculated normally
 #'                  insthead of being forced to 0
@@ -17,6 +15,8 @@
 calibCurve <- function(curve, order = 1, badpoint = NULL,
                        intercept = TRUE, plot = TRUE){
   name <- deparse(substitute(curve))
+
+  dfcheck(df = curve, param = c('Signal', 'Conc'), fun = 'calibCurvebCurve')
 
   if (!missing(badpoint)) curveN <- curve[- badpoint, ] else curveN <- curve
 
