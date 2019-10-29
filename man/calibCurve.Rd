@@ -2,28 +2,54 @@
 % Please edit documentation in R/calibCurve.R
 \name{calibCurve}
 \alias{calibCurve}
-\title{Calculates regression curve for AAS}
+\title{Calculates regression curve for external standard calibration.}
 \usage{
 calibCurve(curve, order = 1, badpoint = NULL, intercept = TRUE,
   plot = TRUE)
 }
 \arguments{
-\item{curve}{data frame of numeric vectors named 'Conc' and 'Signal' containing the
-concentrations and the signals, respectively}
+\item{curve}{data frame of numeric vectors named 'Conc' and 'Signal'
+containing the concentrations and the signals,
+respectively.}
 
-\item{order}{regression curve order, 1 for linear (default), 2 for quadratic.
-More options will be aviliable soon}
+\item{order}{regression curve order, 1 for linear (default) and 2 for
+quadratic. More options will be aviliable soon.}
 
-\item{badpoint}{numeric vector with the points to be ignored in the regresión}
+\item{badpoint}{numeric vector with the points to be ignored in the
+regresión. This allows the easy elimination of ouliers
+whithout losing the stored measurement information.}
 
-\item{intercept}{logical. if \code{TRUE} (default) the intercept is calculated normally
-insthead of being forced to 0}
+\item{intercept}{logical. If \code{TRUE} (default) the intercept is
+calculated normally insthead of being forced to 0.}
 
-\item{plot}{Logical. If \code{TRUE} (default) the calibration data is plotted}
+\item{plot}{Logical. If \code{TRUE} (default) the calibration data
+is plotted.}
 }
 \value{
-Model of the calibration curve
+Model of the calibration curve.
 }
 \description{
-Calculates regression curve for AAS
+The function calculates the regression curve of external standard
+calibration to later use it to convert signals into concentration
+values. It also plots the obtained calibration curve if desired.
+}
+\details{
+A simple linear method (i.e \code{lm()}) is applied to obtain the
+regression curve. Model assumptions (e.g normal distribution of
+residuals) must be verified.
+}
+\examples{
+  calibData <- data.frame(Conc = c(0.00, 0.05, 0.25, 0.77, 1.00),
+                          Signal = c(0.000, 0.031, 0.160, 0.476, 0.611))
+  calibCurve(curve = calibData, order = 1)
+  calibCurve(curve = calibData, order = 2)
+}
+\seealso{
+\code{\link{calibPlane}} when using more than one explicatory
+  variable.
+}
+\author{
+Cristhian Paredes, \email{craparedesca@unal.edu.co}
+
+Eduardo Rodriguez de San Miguel, \email{erdsmg@unam.mx}
 }

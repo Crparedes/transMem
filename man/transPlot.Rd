@@ -6,7 +6,7 @@
 \usage{
 transPlot(trans, trend = NULL, secondary = FALSE, legend = FALSE,
   xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL,
-  lin.secon = FALSE, sec.trend = "spline")
+  lin.secon = FALSE, sec.trend = "spline", span = 0.75)
 }
 \arguments{
 \item{trans}{data frame generated using \code{conc2frac}. This is the only non-optional
@@ -25,6 +25,9 @@ parameter}
 \item{ybreaks}{numeric vector of x-axis breaks}
 
 \item{lin.secon}{logical, can a linear profile of secondary metal be assumed?}
+}
+\value{
+plot
 }
 \description{
 Two empirical non-linear regression curves may be fitted. The data must be provided in

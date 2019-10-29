@@ -2,25 +2,44 @@
 % Please edit documentation in R/signal2conc.R
 \name{signal2conc}
 \alias{signal2conc}
-\title{Convert signals into concentration by using given model}
+\title{Converts signals into concentration by using given model.}
 \usage{
 signal2conc(signal, model, dilution = NULL, planar = FALSE,
   Conc.S = NULL)
 }
 \arguments{
-\item{signal}{numeric vector of signals to be interpolated}
+\item{signal}{numeric vector of signals to be interpolated.}
 
-\item{model}{regression model for the calibration curve}
+\item{model}{regression model for the calibration. Must be obtained
+using \code{\link{calibCurve}} or \code{\link{calibPlane}}.}
 
-\item{dilution}{numeric vector of dilution factors applied to samples}
+\item{dilution}{numeric vector of dilution factors applied to samples
+before measurement}
 
-\item{planar}{logical}
+\item{planar}{logical, defalut to \code{FALSE}. It must be set to TRUE if
+more than one explicatory variable is used. A planar
+calibration model must be provided to \code{model}.}
 
-\item{Conc.S}{...only used if \code{planar} is set to}
+\item{Conc.S}{numeric vector of the concentrations of the interferent
+specie to be considered when a planar calibration model is
+provided to \code{model}. It is taken into account if
+\code{planar} is set to TRUE.}
 }
 \value{
 Numeric vector of concentrations
 }
 \description{
-Convert signals into concentration by using given model
+After a calibration model is established (either by using
+\code{\link{calibCurve}} or \code{\link{calibPlane}}), the function
+interpolates the signals of samples to get the associated concentrations.
+}
+\examples{
+  #calibData <- #CREATE DATASET!!!!
+  #calibPlane(plane = calibData)
+
+}
+\author{
+Cristhian Paredes, \email{craparedesca@unal.edu.co}
+
+Eduardo Rodriguez de San Miguel, \email{erdsmg@unam.mx}
 }

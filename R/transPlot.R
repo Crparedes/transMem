@@ -13,7 +13,7 @@
 #' @param ybreaks   numeric vector of x-axis breaks
 #'
 #'
-#' @return
+#' @return plot
 #' @import ggplot2 ggformula
 #'
 #' @export
@@ -23,15 +23,9 @@
 transPlot <- function(trans, trend = NULL, secondary = FALSE, legend = FALSE,
                       xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL,
                       lin.secon = FALSE, sec.trend = 'spline', span = 0.75){
-  name <- deparse(substitute(trans))
 
-  if (grepl('Transport', name, ignore.case = TRUE)) {
-    name <- gsub('Transport', 'plot', name, ignore.case = TRUE)
-  } else {
-    name <- paste0('plot', name)
-  }
-
-  p <- ggplot2::ggplot(data = trans, aes(x = Time, y = Fraction, group = Phase)) +
+  p <- ggplot2::ggplot(data = trans,
+                       ggplot2::aes(x = Time, y = Fraction, group = Phase)) +
     ggplot2::theme_bw() + #ggsci::scale_color_npg() +
     ggplot2::geom_point(size = 3, shape = 15, ggplot2::aes(color = Phase)) +
     ggplot2::labs(y = expression(Phi), x = 'Time (h)') +

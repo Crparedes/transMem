@@ -2,20 +2,43 @@
 % Please edit documentation in R/conc2frac.R
 \name{conc2frac}
 \alias{conc2frac}
-\title{Convert signals into concentration by using given model}
+\title{Transforms concentrations of feed and strip into fractions}
 \usage{
-conc2frac(feed, strip, time = NULL)
+conc2frac(feed, strip, time = NULL, correct.strip = FALSE)
 }
 \arguments{
-\item{feed}{numeric vector with feed concentrations}
+\item{feed}{numeric vector with (concentrations in the feed phase}
 
-\item{strip}{numeric vector with strip concentrations}
+\item{strip}{numeric vector with concentrations in the strip phase}
 
-\item{time}{numeric vector with time of aliquots sampling}
+\item{time}{numeric vector with time of aliquots sampling
+(optional, if not provided regular time intervals is
+assumed)}
+
+\item{correct.strip}{logical. If \code{FALSE} (default) the fraction
+transported to the strip phase is calculated normally.
+If set to \code{TRUE} the concentration in the strip
+phase is substracted to all concentrations in the same
+phase. This is useful when the blank signal is
+significative or there is a background concentration
+that is not desired to be considerated but corrected.}
 }
 \value{
 Data frame with the transport proccess information
 }
 \description{
-Convert signals into concentration by using given model
+The change in concentration of species in the feed and strip phases as a
+function of time are the main magnitudes being measured in processes
+involving transport across membranes. This information is often provided as
+the fractions still remaining or already transported in the feed and to the
+strip phase, respectively. The function is used to transform the data from
+concentrations to fractions.
+}
+\details{
+Usually this function will be used after \code{\link{signal2conc}} usage.
+}
+\author{
+Cristhian Paredes, \email{craparedesca@unal.edu.co}
+
+Eduardo Rodriguez de San Miguel, \email{erdsmg@unam.mx}
 }

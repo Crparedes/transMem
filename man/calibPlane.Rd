@@ -2,23 +2,51 @@
 % Please edit documentation in R/calibPlane.R
 \name{calibPlane}
 \alias{calibPlane}
-\title{Calculates regression plane}
+\title{Calculates regression plane for external standard calibration.}
 \usage{
-calibPlane(plane, badpoint = NULL)
+calibPlane(plane, badpoint = NULL, plot = TRUE)
 }
 \arguments{
-\item{plane}{data frame of numeric vectors named 'Conc', 'Conc.S' and 'Signal' containing the
-concentrations of the interest metal, the secondary metal (interferent)
-and the signals, respectively}
+\item{plane}{data frame of numeric vectors named 'Conc', 'Conc.S' and
+'Signal'. The vectors must contain the concentrations of
+the interest metal (the one whose concentration in the
+samples is to be known), the secondary metal (interferent)
+and the signals.}
 
-\item{badpoint}{numeric vector with the points to be ignored in the regresión}
+\item{badpoint}{numeric vector with the points to be ignored in the
+regresión. This allows the easy elimination of ouliers
+whithout losing the stored measurement information.}
 
-\item{order}{Not implemented yet... regression curve order, 1 for linear (default),
-more options will be aviliable soon}
+\item{plot}{Logical. If \code{TRUE} (default) the calibration data
+is plotted.}
+
+\item{order}{Not implemented yet... regression plane order. 1 for linear
+(default), more options will be aviliable soon.}
 }
 \value{
 Model of the calibration plane
 }
 \description{
-Calculates regression plane
+The function calculates the regression plane of external standard
+calibration to later use it to convert signals into concentration values.
+It differs from \code{\link{calibCurve}} in the number of explanatory
+variables which 2 in this case. This function is useful when some
+interference effect is being considered (e.g signal magnification of
+lithium atomic absortion due to the precesnce of sodium in the sample).
+The calibration plane is plotted if desired.
+}
+\details{
+A simple linear method (i.e \code{lm()}) is applied to obtain the
+regression curve. Model assumptions (e.g normal distribution of
+residuals) must be verified.
+}
+\examples{
+  #calibData <- #CREATE DATASET
+  #calibPlane(plane = calibData)
+
+}
+\author{
+Cristhian Paredes, \email{craparedesca@unal.edu.co}
+
+Eduardo Rodriguez de San Miguel, \email{erdsmg@unam.mx}
 }
