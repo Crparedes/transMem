@@ -4,9 +4,11 @@
 \alias{transPlotWR}
 \title{Fits non-linear trend curve to transport profiles}
 \usage{
-transPlotWR(trans, trend = NULL, secondary = NULL, legend = FALSE,
-  xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL,
-  lin.secon = FALSE, sec.trend = "spline", span = 0.75)
+transPlotWR(trans, trend = NULL, secondary = NULL, ternary = NULL,
+  legend = FALSE, xlim = NULL, xbreaks = NULL, ylim = NULL,
+  ybreaks = NULL, lin.secon = FALSE, sec.trend = "spline",
+  span = 0.75, explicit = FALSE, size = 3, eccen = 1,
+  plot = TRUE)
 }
 \arguments{
 \item{trans}{list of data frames generated using \code{conc2frac}. This is the only non-optional
@@ -25,6 +27,8 @@ parameter}
 \item{ybreaks}{numeric vector of x-axis breaks}
 
 \item{lin.secon}{logical, can a linear profile of secondary metal be assumed?}
+
+\item{explicit}{}
 }
 \value{
 plot

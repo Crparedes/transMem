@@ -5,7 +5,8 @@
 \title{Overlays several single-phase transport profiles}
 \usage{
 multiPlotSP(trans, phase = "strip", trend = NULL, legend = FALSE,
-  xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL)
+  xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL,
+  size = 3, nat.color = TRUE, plot = TRUE, shape = 15)
 }
 \arguments{
 \item{trans}{list of data frames generated using \code{conc2frac}. This is the only non-optional

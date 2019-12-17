@@ -6,7 +6,7 @@
 \usage{
 transPlot(trans, trend = NULL, secondary = FALSE, legend = FALSE,
   xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL,
-  lin.secon = FALSE, sec.trend = "spline", span = 0.75)
+  lin.secon = FALSE, sec.trend = "spline", span = 0.75, size = 2.8)
 }
 \arguments{
 \item{trans}{data frame generated using \code{conc2frac}. This is the only non-optional

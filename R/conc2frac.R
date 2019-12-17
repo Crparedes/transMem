@@ -1,4 +1,4 @@
-#' Transforms concentrations of feed and strip into fractions
+#' Transforms feed and strip concentrations into fractions
 #'
 #' The change in concentration of species in the feed and strip phases as a
 #' function of time are the main magnitudes being measured in processes
@@ -30,13 +30,6 @@
 #'
 
 conc2frac <- function(feed, strip, time = NULL, correct.strip = FALSE){
-  name <- deparse(substitute(feed))
-
-  if (grepl('ConcFeed', name, ignore.case = TRUE)) {
-    name <- gsub('ConcFeed', 'Transport', name, ignore.case = TRUE)
-  } else {
-    name <- paste0('Transport', name)
-  }
 
   if (missing(time)) time <- 1:length(feed)
 
@@ -47,7 +40,8 @@ conc2frac <- function(feed, strip, time = NULL, correct.strip = FALSE){
     strip <- strip - strip[1]
   }
 
-  DF <- data.frame(Time = rep(time, 2), Phase = rep(c('Feed', 'Strip'), each = length(time)),
+  DF <- data.frame(Time = rep(time, 2), Phase = rep(c('Feed', 'Strip'),
+                                                    each = length(time)),
                    Fraction = c(feed, strip))
 
   return(DF)

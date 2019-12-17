@@ -18,31 +18,32 @@
 #'
 #' @export
 #'
-#'
 
 transPlot <- function(trans, trend = NULL, secondary = FALSE, legend = FALSE,
                       xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL,
-                      lin.secon = FALSE, sec.trend = 'spline', span = 0.75){
+                      lin.secon = FALSE, sec.trend = 'spline', span = 0.75, size = 2.8,
+                      bw = FALSE){
 
-  p <- ggplot2::ggplot(data = trans,
-                       ggplot2::aes(x = Time, y = Fraction, group = Phase)) +
-    ggplot2::theme_bw() + #ggsci::scale_color_npg() +
-    ggplot2::geom_point(size = 3, shape = 15, ggplot2::aes(color = Phase)) +
-    ggplot2::labs(y = expression(Phi), x = 'Time (h)') +
-    ggplot2::theme(panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),
-                   axis.text.x = ggplot2::element_text(color = "black"),
-                   axis.text.y = ggplot2::element_text(color = "black"))
+  p <- ggplot(data = trans,
+                       aes(x = Time, y = Fraction, group = Phase)) +
+    theme_bw() + #ggsci::scale_color_npg() +
+    geom_point(size = size, shape = 15, aes(color = Phase)) +
+    labs(y = expression(Phi), x = 'Time (h)') +
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                   axis.text.x = element_text(color = "black"),
+                   axis.text.y = element_text(color = "black"))
 
   if (!missing(trend)) {
     if (trend$model == 'paredes') {
       e <- trend$eccen
-      p <- p + ggplot2::stat_function(fun = function(x) (coefficients(trend$strip)[1] * x^e)
+      if (bw) colbw <- c("black", "black") else colbw <- c("red", "black")
+      p <- p + stat_function(fun = function(x) (coefficients(trend$strip)[1] * x^e)
                                       / (1/coefficients(trend$strip)[2] + x^e),
-                                      color = "red",#ggsci::pal_npg("nrc", alpha = 0.7)(2)[2],
+                                      color = colbw[1],#ggsci::pal_npg("nrc", alpha = 0.7)(2)[2],
                                       xlim = c(0, trans$Time[length(trans$Time)])) +
-        ggplot2::stat_function(fun = function(x) (1 - (coefficients(trend$feed)[1] * x^e)
+        stat_function(fun = function(x) (1 - (coefficients(trend$feed)[1] * x^e)
                                          / (1/coefficients(trend$feed)[2] + x^e)),
-                               color = "black",# ggsci::pal_npg("nrc", alpha = 0.7)(2)[1],
+                               color = colbw[2],# ggsci::pal_npg("nrc", alpha = 0.7)(2)[1],
                                xlim = c(0, trans$Time[length(trans$Time)]))
     }
   }
@@ -51,62 +52,74 @@ transPlot <- function(trans, trend = NULL, secondary = FALSE, legend = FALSE,
     sec.trend = 'linear'
   }
   if (!missing(secondary)) {
-    secondary$Phase <- paste0(secondary$Phase, ".")
-    if (sec.trend == 'linear') {
-      p <- p + ggplot2::scale_shape_identity() +
-        ggplot2::geom_smooth(method = "lm", data = secondary, se = FALSE, size = 0.5,
-                               ggplot2::aes(x = Time, y = Fraction, group = Phase, color = Phase))
+    if (class(secondary) == "data.frame") {
+      secondary$Phase <- paste0(secondary$Phase, ".")
+      if (sec.trend == 'linear') {
+        p <- p + scale_shape_identity() +
+          geom_smooth(method = "lm", data = secondary, se = FALSE, size = 0.5,
+                                 aes(x = Time, y = Fraction, group = Phase, color = Phase))
+      }
+      if (sec.trend == 'spline') {
+        p <- p + scale_shape_identity() +
+          geom_spline(data = secondary, spar = 0.7, size = 0.5,
+                                 aes(x = Time, y = Fraction, group = Phase, color = Phase))
+      }
+      if (sec.trend == 'logaritmic') { #Still under implementation
+        p <- p + scale_shape_identity() +
+          stat_smooth(data = secondary, method = "lm", formula = y ~ log(x), size = 0.5, se = FALSE,
+                      aes(x = Time, y = Fraction, group = Phase, color = Phase))
+      }
+      if (sec.trend == 'loess') {
+        p <- p + scale_shape_identity() +
+          stat_smooth(data = secondary, method = "loess", span = span, size = 0.5, se = FALSE,
+                      aes(x = Time, y = Fraction, group = Phase, color = Phase))
+      }
+      p <- p + geom_point(data = secondary, size = 3,
+                                   aes(x = Time, y = Fraction,
+                                                group = Phase, shape = 17, color = Phase))
+    } else {
+      # PENDIENTE!! -> Admitir varios metales segundarios
     }
-    if (sec.trend == 'spline') {
-      p <- p + ggplot2::scale_shape_identity() +
-        ggformula::geom_spline(data = secondary, spar = 0.7, size = 0.5,
-                               ggplot2::aes(x = Time, y = Fraction, group = Phase, color = Phase))
-    }
-    if (sec.trend == 'logaritmic') { #Still under implementation
-      p <- p + ggplot2::scale_shape_identity() +
-        stat_smooth(data = secondary, method = "lm", formula = y ~ log(x), size = 0.5, se = FALSE,
-                    ggplot2::aes(x = Time, y = Fraction, group = Phase, color = Phase))
-    }
-    if (sec.trend == 'loess') {
-      p <- p + ggplot2::scale_shape_identity() +
-        stat_smooth(data = secondary, method = "loess", span = span, size = 0.5, se = FALSE,
-                    ggplot2::aes(x = Time, y = Fraction, group = Phase, color = Phase))
-    }
-    p <- p + ggplot2::geom_point(data = secondary, size = 3,
-                                 ggplot2::aes(x = Time, y = Fraction,
-                                              group = Phase, shape = 17, color = Phase))
   }
 
   if (!missing(xlim) && !missing(xbreaks)) {
-    p <- p  + ggplot2::scale_x_continuous(breaks = xbreaks, limits = xlim)
+    p <- p  + scale_x_continuous(breaks = xbreaks, limits = xlim)
   } else {
     if (!missing(xlim)) {
-      p <- p  + ggplot2::scale_x_continuous(limits = xlim)
+      p <- p  + scale_x_continuous(limits = xlim)
     }
     if (!missing(xbreaks)) {
-      p <- p  + ggplot2::scale_x_continuous(breaks = xbreaks)
+      p <- p  + scale_x_continuous(breaks = xbreaks)
     }
   }
 
   if (!missing(ylim) && !missing(ybreaks)) {
-    p <- p  + ggplot2::scale_y_continuous(breaks = ybreaks, limits = ylim)
+    p <- p  + scale_y_continuous(breaks = ybreaks, limits = ylim)
   } else {
     if (!missing(ylim)) {
-      p <- p  + ggplot2::scale_y_continuous(limits = ylim)
+      p <- p  + scale_y_continuous(limits = ylim)
     }
     if (!missing(ybreaks)) {
-      p <- p  + ggplot2::scale_y_continuous(breaks = ybreaks)
+      p <- p  + scale_y_continuous(breaks = ybreaks)
     }
   }
 
   if (!legend) {
-    p <- p + ggplot2::theme(legend.position = 'none')
+    p <- p + theme(legend.position = 'none')
   }
 
-  if (missing(secondary)) {
-    p <- p + ggplot2::scale_color_manual(values = c("black", "red"))
+  if (bw) {
+    if (missing(secondary)) {
+      p <- p + scale_color_manual(values = rep("black", 2))
+    } else {
+      p <- p + scale_color_manual(values = rep("black", 4))
+    }
   } else {
-    p <- p + ggplot2::scale_color_manual(values = c("black", "gray48", "red", "indianred1"))
+    if (missing(secondary)) {
+      p <- p + scale_color_manual(values = c("black", "red"))
+    } else {
+      p <- p + scale_color_manual(values = c("black", "gray48", "red", "indianred1"))
+    }
   }
 
   print(p)

@@ -31,31 +31,25 @@
 #' @author Cristhian Paredes, \email{craparedesca@@unal.edu.co}
 #' @author Eduardo Rodriguez de San Miguel, \email{erdsmg@@unam.mx}
 #' @export
-#'
 
 calibCurve <- function(curve, order = 1, badpoint = NULL,
                        intercept = TRUE, plot = TRUE){
-  name <- deparse(substitute(curve))
 
   dfcheck(df = curve, param = c('Signal', 'Conc'), fun = 'calibCurve')
-
   if (!missing(badpoint)) curveN <- curve[- badpoint, ] else curveN <- curve
 
   if (intercept) {
     if (order == 1) model <- lm(Signal ~ Conc, data = curveN)
-
     if (order == 2) model <- lm(Signal ~ Conc + I(Conc ^ 2), data = curveN)
-
-    if (order == 3) model <- lm(Signal ~ Conc + I(Conc ^ 2) + I(Conc ^ 3), data = curveN)
+    if (order == 3) model <- lm(Signal ~ Conc + I(Conc ^ 2) +
+                                  I(Conc ^ 3), data = curveN)
   } else {
     if (order == 1) model <- lm(Signal ~ 0 + Conc, data = curveN)
-
     if (order == 2) model <- lm(Signal ~ 0 + Conc + I(Conc ^ 2), data = curveN)
-
-    if (order == 3) model <- lm(Signal ~ 0 + Conc + I(Conc ^ 2) + I(Conc ^ 3), data = curveN)
+    if (order == 3) model <- lm(Signal ~ 0 + Conc + I(Conc ^ 2) +
+                                  I(Conc ^ 3), data = curveN)
   }
+
   if (plot) plotCCurve(curve = curve, model = model, badpoint = badpoint)
-
   return(model)
-
 }

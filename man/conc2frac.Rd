@@ -2,7 +2,7 @@
 % Please edit documentation in R/conc2frac.R
 \name{conc2frac}
 \alias{conc2frac}
-\title{Transforms concentrations of feed and strip into fractions}
+\title{Transforms feed and strip concentrations into fractions}
 \usage{
 conc2frac(feed, strip, time = NULL, correct.strip = FALSE)
 }

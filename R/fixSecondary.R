@@ -19,7 +19,7 @@
 fixSecondary <- function(metalConc, time, compTime, order = 1) {
   model <- calibCurve(curve = data.frame(Conc = time,
                                          Signal = metalConc),
-                      intercept = FALSE, order = order, plot = FALSE)
+                      intercept = TRUE, order = order, plot = FALSE)
 
   fConc <- predict(model, newdata = data.frame(Conc = compTime))
   return(fConc)

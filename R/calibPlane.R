@@ -31,7 +31,6 @@
 #'
 
 calibPlane <- function(plane, badpoint = NULL, plot = TRUE){
-  name <- deparse(substitute(plane))
 
   if (!missing(badpoint)) curveN <- curve[- badpoint, ] else curveN <- curve
 

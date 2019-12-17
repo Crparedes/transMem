@@ -18,7 +18,8 @@
 #'
 
 multiPlotSP <- function(trans, phase = 'strip', trend = NULL, legend = FALSE,
-                        xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL){
+                        xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL, size = 3,
+                        nat.color = TRUE, plot = TRUE, shape = 15){
   if (!any(phase == c('strip', 'Strip', 'feed', 'Feed'))) {
     stop("Only 'feed' or 'strip' are allowed to phase parameter")
   }
@@ -30,18 +31,23 @@ multiPlotSP <- function(trans, phase = 'strip', trend = NULL, legend = FALSE,
   }
 
   hues = seq(15, 375, length = length(trans) + 1)
-  cols = hcl(h = hues, l = 65, c = 100)[1:length(trans)]
+  if(nat.color) {
+    cols = hcl(h = hues, l = 65, c = 100)[1:length(trans)]
+  } else {
+    cols = rep("black", length(trans))
+  }
+
 
   p <- ggplot(data = trans[[1]], aes(x = Time, y = Fraction)) +
     theme_bw() + #ggsci::scale_color_npg() +
-    geom_point(size = 3, shape = 15, color = cols[1]) +
+    geom_point(size = size, shape = shape, color = cols[1]) +
     labs(y = expression(Phi), x = 'Time (h)') +
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                    axis.text.x = element_text(color = "black"),
                    axis.text.y = element_text(color = "black"))
 
   for (i in 2:length(trans)) {
-    p <- p + geom_point(data = trans[[i]], size = 3, shape = 15, color = cols[i])
+    p <- p + geom_point(data = trans[[i]], size = size, shape = shape, color = cols[i])
   }
 
   if (!missing(trend)) {
@@ -89,14 +95,16 @@ multiPlotSP <- function(trans, phase = 'strip', trend = NULL, legend = FALSE,
     p <- p + theme(legend.position = 'none')
   }
 
-  x <- y <- vector()
-  for (i in 1:length(trans)) {
-    x <- c(x, trans[[i]]$Time[1])
-    y <- c(y, trans[[i]]$Fraction[1])
+  if(nat.color) {
+    x <- y <- vector()
+    for (i in 1:length(trans)) {
+      x <- c(x, trans[[i]]$Time[1])
+      y <- c(y, trans[[i]]$Fraction[1])
+    }
+    p <- p + geom_point(data = data.frame(col = as.factor(1:length(trans)), x = x, y = y),
+                        aes(x = x, y = y, group = col, color = col))
   }
-  p <- p + geom_point(data = data.frame(col = as.factor(1:length(trans)), x = x, y = y),
-                      aes(x = x, y = y, group = col, color = col))
 
-  print(p)
+  if (plot) print(p)
   return(p)
 }
