@@ -19,10 +19,10 @@
 #' @export
 #'
 
-transPlot <- function(trans, trend = NULL, secondary = FALSE, legend = FALSE,
+transPlot <- function(trans, trend = NULL, secondary = FALSE, ternary = NULL, legend = FALSE,
                       xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL,
                       lin.secon = FALSE, sec.trend = 'spline', span = 0.75, size = 2.8,
-                      bw = FALSE){
+                      bw = FALSE, srs = 0.8){
 
   p <- ggplot(data = trans,
                        aes(x = Time, y = Fraction, group = Phase)) +
@@ -51,6 +51,12 @@ transPlot <- function(trans, trend = NULL, secondary = FALSE, legend = FALSE,
     warning("lin.secon is deprecated. Use sec.trend = 'linear' instead.")
     sec.trend = 'linear'
   }
+
+  if (bw) {
+    p <- p + geom_point(data = trans[which(trans$Phase == 'Strip'), ], col = 'white', size = size*srs,
+                        aes(x = Time, y = Fraction), shape = 15)
+  }
+
   if (!missing(secondary)) {
     if (class(secondary) == "data.frame") {
       secondary$Phase <- paste0(secondary$Phase, ".")
@@ -74,9 +80,54 @@ transPlot <- function(trans, trend = NULL, secondary = FALSE, legend = FALSE,
           stat_smooth(data = secondary, method = "loess", span = span, size = 0.5, se = FALSE,
                       aes(x = Time, y = Fraction, group = Phase, color = Phase))
       }
-      p <- p + geom_point(data = secondary, size = 3,
-                                   aes(x = Time, y = Fraction,
-                                                group = Phase, shape = 17, color = Phase))
+      if (bw) {
+        p <- p + geom_point(data = secondary, size = size,
+                            aes(x = Time, y = Fraction), shape = 17, color = 'black')
+        p <- p + geom_point(data = secondary[which(secondary$Phase == 'Strip.'), ], size = size * srs,
+                            aes(x = Time, y = Fraction), shape = 17, color = 'white')
+      } else {
+        p <- p + geom_point(data = secondary, size = 3,
+                            aes(x = Time, y = Fraction,
+                                group = Phase, shape = 17, color = Phase))
+      }
+    } else {
+      # PENDIENTE!! -> Admitir varios metales segundarios
+    }
+  }
+
+  if (!missing(ternary)) {
+    if (class(ternary) == "data.frame") {
+      ternary$Phase <- paste0(ternary$Phase, ".")
+      if (sec.trend == 'linear') {
+        p <- p + scale_shape_identity() +
+          geom_smooth(method = "lm", data = ternary, se = FALSE, size = 0.5,
+                      aes(x = Time, y = Fraction, group = Phase, color = Phase))
+      }
+      if (sec.trend == 'spline') {
+        p <- p + scale_shape_identity() +
+          geom_spline(data = ternary, spar = 0.7, size = 0.5,
+                      aes(x = Time, y = Fraction, group = Phase, color = Phase))
+      }
+      if (sec.trend == 'logaritmic') { #Still under implementation
+        p <- p + scale_shape_identity() +
+          stat_smooth(data = ternary, method = "lm", formula = y ~ log(x), size = 0.5, se = FALSE,
+                      aes(x = Time, y = Fraction, group = Phase, color = Phase))
+      }
+      if (sec.trend == 'loess') {
+        p <- p + scale_shape_identity() +
+          stat_smooth(data = ternary, method = "loess", span = span, size = 0.5, se = FALSE,
+                      aes(x = Time, y = Fraction, group = Phase, color = Phase))
+      }
+      if (bw) {
+        p <- p + geom_point(data = ternary, size = size,
+                            aes(x = Time, y = Fraction), shape = 16, color = 'black')
+        p <- p + geom_point(data = ternary[which(ternary$Phase == 'Strip.'), ], size = size * srs,
+                            aes(x = Time, y = Fraction), shape = 16, color = 'white')
+      } else {
+        p <- p + geom_point(data = ternary, size = 3,
+                            aes(x = Time, y = Fraction,
+                                group = Phase, shape = 16, color = Phase))
+      }
     } else {
       # PENDIENTE!! -> Admitir varios metales segundarios
     }

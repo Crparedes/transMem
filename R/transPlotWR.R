@@ -188,7 +188,7 @@ transPlotWR <- function(trans, trend = NULL, secondary = NULL, ternary = NULL, l
           p <- p + geom_point(data = msecon[which(msecon$Phase == 'Strip.'), ], size = size * srs,
                               aes(x = Time, y = Fraction), shape = 17, color = 'white')
         } else {
-          p <- p + geom_point(data = secondary[[i]], size = 3,
+          p <- p + geom_point(data = msecon, size = 3,
                               aes(x = Time, y = Fraction,
                                   group = Phase, shape = 17, color = Phase))
         }
@@ -216,10 +216,18 @@ transPlotWR <- function(trans, trend = NULL, secondary = NULL, ternary = NULL, l
             stat_smooth(data = mterna, method = "loess", span = span, size = 0.5, se = FALSE,
                         aes(x = Time, y = Fraction, group = Phase, color = Phase))
         }
-        p <- p + geom_point(data = mterna, size = size,
-                            aes(x = Time, y = Fraction,
-                                group = Phase, shape = 16, color = Phase))
-        p <- p + geom_errorbar(data = mterna, aes(x = Time, ymin = Fraction - SD, ymax = Fraction + SD, color = Phase), width = 0.1)
+        p <- p + geom_errorbar(data = mterna, aes(x = Time, ymin = Fraction - SD,
+                                                  ymax = Fraction + SD, color = Phase), width = 0.1)
+        if (bw) {
+          p <- p + geom_point(data = mterna, size = size,
+                              aes(x = Time, y = Fraction), shape = 16, color = 'black')
+          p <- p + geom_point(data = mterna[which(mterna$Phase == 'Strip.'), ], size = size * srs,
+                              aes(x = Time, y = Fraction), shape = 16, color = 'white')
+        } else {
+          p <- p + geom_point(data = mterna, size = 3,
+                              aes(x = Time, y = Fraction,
+                                  group = Phase, shape = 16, color = Phase))
+        }
       }
     }
 
