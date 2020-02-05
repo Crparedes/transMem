@@ -14,13 +14,15 @@
 #' @param time          numeric vector with time of aliquots sampling
 #'                      (optional, if not provided regular time intervals is
 #'                      assumed)
-#' @param correct.strip logical. If \code{FALSE} (default) the fraction
+#' @param correct.strip logical. If \code{FALSE} (default), the fraction
 #'                      transported to the strip phase is calculated normally.
 #'                      If set to \code{TRUE} the concentration in the strip
 #'                      phase is substracted to all concentrations in the same
 #'                      phase. This is useful when the blank signal is
 #'                      significative or there is a background concentration
 #'                      that is not desired to be considerated but corrected.
+#' @param normalize     logical. If \code{TRUE} (default), concentration is
+#'                      normalized to initial concentration in feed...
 #' @example
 #' #Provide a dataset!!!
 #' @return Data frame with the transport proccess information
@@ -29,7 +31,7 @@
 #' @export
 #'
 
-conc2frac <- function(feed, strip, time = NULL, correct.strip = FALSE){
+conc2frac <- function(feed, strip, time = NULL, correct.strip = FALSE, normalize = TRUE){
 
   if (missing(time)) time <- 1:length(feed)
 
