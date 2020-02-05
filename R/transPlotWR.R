@@ -19,7 +19,7 @@
 #' @export
 #'
 
-transPlotWR <- function(trans, trend = NULL, secondary = NULL, ternary = NULL, legend = FALSE,
+transPlotWR <- function(trans, trend = NULL, secondary = NULL, tertiary = NULL, legend = FALSE,
                         xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL,
                         lin.secon = FALSE, sec.trend = 'spline', span = 0.75,
                         explicit = FALSE, size = 3, eccen = 1, plot = TRUE, bw = FALSE, srs = 0.8){
@@ -108,7 +108,7 @@ transPlotWR <- function(trans, trend = NULL, secondary = NULL, ternary = NULL, l
               ggformula::geom_spline(data = secondary[[i]], spar = 0.7, size = 0.5,
                                      aes(x = Time, y = Fraction, group = Phase, color = Phase))
           }
-          if (sec.trend == 'logaritmic') { #Still under implementation
+          if (sec.trend == 'logarithmic') { #Still under implementation
             p <- p + scale_shape_identity() +
               stat_smooth(data = secondary[[i]], method = "lm", formula = y ~ log(x), size = 0.5, se = FALSE,
                           aes(x = Time, y = Fraction, group = Phase, color = Phase))
@@ -169,7 +169,7 @@ transPlotWR <- function(trans, trend = NULL, secondary = NULL, ternary = NULL, l
             ggformula::geom_spline(data = msecon, spar = 0.7, size = 0.5,
                                    aes(x = Time, y = Fraction, group = Phase, color = Phase))
         }
-        if (sec.trend == 'logaritmic') { #Still under implementation
+        if (sec.trend == 'logarithmic') { #Still under implementation
           p <- p + scale_shape_identity() +
             stat_smooth(data = msecon, method = "lm", formula = y ~ log(x), size = 0.5, se = FALSE,
                         aes(x = Time, y = Fraction, group = Phase, color = Phase))
@@ -206,7 +206,7 @@ transPlotWR <- function(trans, trend = NULL, secondary = NULL, ternary = NULL, l
             ggformula::geom_spline(data = mterna, spar = 0.7, size = 0.5,
                                    aes(x = Time, y = Fraction, group = Phase, color = Phase))
         }
-        if (sec.trend == 'logaritmic') { #Still under implementation
+        if (sec.trend == 'logarithmic') { #Still under implementation
           p <- p + scale_shape_identity() +
             stat_smooth(data = mterna, method = "lm", formula = y ~ log(x), size = 0.5, se = FALSE,
                         aes(x = Time, y = Fraction, group = Phase, color = Phase))

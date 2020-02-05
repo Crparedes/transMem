@@ -1,16 +1,30 @@
-#' Fits non-linear trend curve to transport profiles
+#' Plots individual transport profiles
 #'
-#' Two empirical non-linear regression curves may be fitted. The data must be provided in
+#' Given the fractions of the interest species and (optionally) up to two seccondary species,
+#' the function plots transport profiles including (if given) non-linear regression models
+#' obtained using \link{\code{transNLS}}.
 #'
-#' @param trans     data frame generated using \code{conc2frac}. This is the only non-optional
-#'                  parameter
-#' @param trend     nls of ...
-#' @param secondary secondary metal considered
-#' @param lin.secon logical, can a linear profile of secondary metal be assumed?
+#' @param trans     main species fractions in time for both phases. Must be a data frame generated using
+#'                  \link{\code{conc2frac}}. This is the only non-optional parameter
+#' @param trend     non-linear regression model of the main transport profile
+#' @param secondary secondary species fraction data. Must be a data frame generated using
+#'                  \link{\code{conc2frac}}
+#' @param tertiary  tertiaty species fraction data. Must be a data frame generated using
+#'                  \link{\code{conc2frac}}
+#' @param sec.trend type of trend line to be used for secondary and tertiary species data.
+#'                  default to \code{'spline'} but \code{'linear'}, \code{'loess'} and
+#'                  \code{'logarithmic'} are also available
+#' @param span      amount of smoothing for loess trend curves. Only used if \code{sec.trend = 'loess'}.
+#'                  Is a value between 0 and 1. Default is 0.75
+#' @param legend    logical. Should a legend be included? Default to \code{FALSE}
 #' @param xlim      numeric vector of limits to be considered for X-axis
 #' @param xbreaks   numeric vector of x-axis breaks
 #' @param ylim      numeric vector of limits to be considered for X-axis
 #' @param ybreaks   numeric vector of x-axis breaks
+#' @param size      size used for points in the plot
+#' @param bw        logical default to \code{FALSE}. If \code{TRUE}, a black and white
+#'                  plot is produced
+#' @param srs       only used if \code{bw = TRUE}. It sets the relative size of the void space
 #'
 #'
 #' @return plot
@@ -19,10 +33,11 @@
 #' @export
 #'
 
-transPlot <- function(trans, trend = NULL, secondary = FALSE, ternary = NULL, legend = FALSE,
+transPlot <- function(trans, trend = NULL, secondary = FALSE, tertiary = NULL,
+                      sec.trend = 'spline', lin.secon = FALSE, span = 0.75,
+                      legend = FALSE,
                       xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL,
-                      lin.secon = FALSE, sec.trend = 'spline', span = 0.75, size = 2.8,
-                      bw = FALSE, srs = 0.8){
+                      size = 2.8, bw = FALSE, srs = 0.8){
 
   p <- ggplot(data = trans,
                        aes(x = Time, y = Fraction, group = Phase)) +
@@ -70,7 +85,7 @@ transPlot <- function(trans, trend = NULL, secondary = FALSE, ternary = NULL, le
           geom_spline(data = secondary, spar = 0.7, size = 0.5,
                                  aes(x = Time, y = Fraction, group = Phase, color = Phase))
       }
-      if (sec.trend == 'logaritmic') { #Still under implementation
+      if (sec.trend == 'logarithmic') { #Still under implementation
         p <- p + scale_shape_identity() +
           stat_smooth(data = secondary, method = "lm", formula = y ~ log(x), size = 0.5, se = FALSE,
                       aes(x = Time, y = Fraction, group = Phase, color = Phase))
@@ -108,7 +123,7 @@ transPlot <- function(trans, trend = NULL, secondary = FALSE, ternary = NULL, le
           geom_spline(data = ternary, spar = 0.7, size = 0.5,
                       aes(x = Time, y = Fraction, group = Phase, color = Phase))
       }
-      if (sec.trend == 'logaritmic') { #Still under implementation
+      if (sec.trend == 'logarithmic') { #Still under implementation
         p <- p + scale_shape_identity() +
           stat_smooth(data = ternary, method = "lm", formula = y ~ log(x), size = 0.5, se = FALSE,
                       aes(x = Time, y = Fraction, group = Phase, color = Phase))
