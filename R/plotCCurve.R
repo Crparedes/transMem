@@ -1,10 +1,4 @@
-#' Plot calibration curve and add regression line
-#'
-#' @param curve
-#' @param model
-#' @param badpoint
-#'
-#' @export
+# No documentation needed as the function is not exported
 
 plotCCurve <- function(curve, model = NULL, badpoint = NULL) {
   hpc <- rep(19, nrow(curve))

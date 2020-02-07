@@ -8,21 +8,21 @@ calibCurve(curve, order = 1, badpoint = NULL, intercept = TRUE,
   plot = TRUE)
 }
 \arguments{
-\item{curve}{data frame of numeric vectors named 'Conc' and 'Signal'
+\item{curve}{Data frame of numeric vectors named 'Conc' and 'Signal'
 containing the concentrations and the signals,
 respectively.}
 
-\item{order}{regression curve order, 1 for linear (default) and 2 for
+\item{order}{Regression curve order, 1 for linear (default) and 2 for
 quadratic. More options will be aviliable soon.}
 
-\item{badpoint}{numeric vector with the points to be ignored in the
+\item{badpoint}{Numeric vector with the points to be ignored in the
 regresión. This allows the easy elimination of ouliers
 whithout losing the stored measurement information.}
 
-\item{intercept}{logical. If \code{TRUE} (default) the intercept is
+\item{intercept}{Logical. If \code{TRUE}, the default, the intercept is
 calculated normally insthead of being forced to 0.}
 
-\item{plot}{Logical. If \code{TRUE} (default) the calibration data
+\item{plot}{Logical. If \code{TRUE}, the default, the calibration data
 is plotted.}
 }
 \value{
@@ -36,7 +36,7 @@ values. It also plots the obtained calibration curve if desired.
 \details{
 A simple linear method (i.e \code{lm()}) is applied to obtain the
 regression curve. Model assumptions (e.g normal distribution of
-residuals) must be verified.
+residuals) must be verified by the user.
 }
 \examples{
   calibData <- data.frame(Conc = c(0.00, 0.05, 0.25, 0.77, 1.00),
@@ -45,7 +45,7 @@ residuals) must be verified.
   calibCurve(curve = calibData, order = 2)
 }
 \seealso{
-\code{\link{calibPlane}} when using more than one explicatory
+\code{\link{calibPlane}} when using more than one explanatory
   variable.
 }
 \author{

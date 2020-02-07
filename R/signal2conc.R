@@ -46,7 +46,7 @@ signal2conc <- function(signal, model, dilution = NULL,
       conc <- (signal - model$coefficients[1]) / model$coefficients[2]
     }
     if (length(model$coefficients) == 3) {
-      conc <- cmna::quadratic2(b2 = model$coefficients[[3]], b1 = model$coefficients[[2]],
+      conc <- quadratic2(b2 = model$coefficients[[3]], b1 = model$coefficients[[2]],
                                b0 = model$coefficients[[1]] - signal)
       conc <- conc[(length(conc) / 2 + 1):length(conc)]
     }

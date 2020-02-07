@@ -4,12 +4,9 @@
 \alias{permcoef}
 \title{calculates...}
 \usage{
-permcoef(trans, conc_0, vol, area)
+permcoef(trans, conc_0, vol, area, units = c("cm^3", "cm^2", "h"))
 }
 \arguments{
-\item{trans}{data frame generated using \code{conc2frac}. This is the only non-optional
-parameter}
-
 \item{area}{secondary metal considered}
 
 \item{initial}{logical, can a linear profile of secondary metal be assumed?}

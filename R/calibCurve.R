@@ -6,19 +6,19 @@
 #'
 #' A simple linear method (i.e \code{lm()}) is applied to obtain the
 #' regression curve. Model assumptions (e.g normal distribution of
-#' residuals) must be verified.
+#' residuals) must be verified by the user.
 #'
-#' @param curve     data frame of numeric vectors named 'Conc' and 'Signal'
+#' @param curve     Data frame of numeric vectors named 'Conc' and 'Signal'
 #'                  containing the concentrations and the signals,
 #'                  respectively.
-#' @param order     regression curve order, 1 for linear (default) and 2 for
+#' @param order     Regression curve order, 1 for linear (default) and 2 for
 #'                  quadratic. More options will be aviliable soon.
-#' @param badpoint  numeric vector with the points to be ignored in the
+#' @param badpoint  Numeric vector with the points to be ignored in the
 #'                  regresión. This allows the easy elimination of ouliers
 #'                  whithout losing the stored measurement information.
-#' @param intercept logical. If \code{TRUE} (default) the intercept is
+#' @param intercept Logical. If \code{TRUE}, the default, the intercept is
 #'                  calculated normally insthead of being forced to 0.
-#' @param plot      Logical. If \code{TRUE} (default) the calibration data
+#' @param plot      Logical. If \code{TRUE}, the default, the calibration data
 #'                  is plotted.
 #' @return Model of the calibration curve.
 #' @examples
@@ -26,7 +26,7 @@
 #'                           Signal = c(0.000, 0.031, 0.160, 0.476, 0.611))
 #'   calibCurve(curve = calibData, order = 1)
 #'   calibCurve(curve = calibData, order = 2)
-#' @seealso \code{\link{calibPlane}} when using more than one explicatory
+#' @seealso \code{\link{calibPlane}} when using more than one explanatory
 #'   variable.
 #' @author Cristhian Paredes, \email{craparedesca@@unal.edu.co}
 #' @author Eduardo Rodriguez de San Miguel, \email{erdsmg@@unam.mx}

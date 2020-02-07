@@ -2,37 +2,85 @@
 % Please edit documentation in R/transPlotWR.R
 \name{transPlotWR}
 \alias{transPlotWR}
-\title{Fits non-linear trend curve to transport profiles}
+\title{Plots transport profiles of replicated experiments}
 \usage{
-transPlotWR(trans, trend = NULL, secondary = NULL, ternary = NULL,
-  legend = FALSE, xlim = NULL, xbreaks = NULL, ylim = NULL,
-  ybreaks = NULL, lin.secon = FALSE, sec.trend = "spline",
-  span = 0.75, explicit = FALSE, size = 3, eccen = 1,
-  plot = TRUE)
+transPlotWR(trans, trend = NULL, secondary = NULL, tertiary = NULL,
+  legend = FALSE, xlab = "Time (h)", ylab = expression(Phi),
+  xlim = NULL, ylim = NULL, xbreaks = NULL, ybreaks = NULL,
+  lin.secon = FALSE, sec.trend = "spline", span = 0.75,
+  explicit = FALSE, size = 3, plot = TRUE, bw = FALSE, srs = 0.8)
 }
 \arguments{
-\item{trans}{list of data frames generated using \code{conc2frac}. This is the only non-optional
-parameter}
+\item{trans}{List of data frames with the complete transport
+information of interest species. Must be generated
+using \code{\link{conc2frac}}. This is the only
+non-optional parameter.}
 
-\item{trend}{list of nls of ...}
+\item{trend}{List of Non-linear regression models of the main
+transport profile generated using \code{\link{transTrend}}.}
 
-\item{secondary}{list of secondary metal considered}
+\item{secondary}{List of secondary species transport data frame (see
+\code{\link{conc2frac}}).}
 
-\item{xlim}{numeric vector of limits to be considered for X-axis}
+\item{tertiary}{List of tertiary species transport data frame (see
+\code{\link{conc2frac}}).}
 
-\item{xbreaks}{numeric vector of x-axis breaks}
+\item{legend}{Logical. If \code{FALSE}, the default, the legend is not
+included.}
 
-\item{ylim}{numeric vector of limits to be considered for X-axis}
+\item{xlab}{Label to be used for x axis. Text and expression allowed.}
 
-\item{ybreaks}{numeric vector of x-axis breaks}
+\item{ylab}{Label to be used for y axis. Text and expression allowed.}
 
-\item{lin.secon}{logical, can a linear profile of secondary metal be assumed?}
+\item{xlim}{Numeric vector of limits to be considered for X-axis.}
 
-\item{explicit}{}
+\item{ylim}{Numeric vector of limits to be considered for X-axis.}
+
+\item{xbreaks}{Numeric vector of x-axis breaks.}
+
+\item{ybreaks}{Numeric vector of x-axis breaks.}
+
+\item{sec.trend}{Type of trend line to be used for secondary and tertiary
+species data. Default is \code{'spline'} but
+\code{'linear'}, \code{'loess'} and \code{'logarithmic'}
+are also allowed.}
+
+\item{span}{Amount of smoothing when \code{sec.tred = 'loess'}. Is a
+value between 0 and 1. Default is 0.75}
+
+\item{explicit}{Logical, if \code{FALSE}, the default, transport
+informations are averaged and plotted using errorbars that
+with the standard deviation values. If \code{TRUE}, all
+provided data is plotted in the same graphic.}
+
+\item{size}{Size used for points in the plot.}
+
+\item{plot}{Logical. If \code{TRUE}, the default, the plot is printed
+in the current graphical device.}
+
+\item{bw}{Logical, if \code{FALSE}, the default, a color version of
+the plot is given. If a black and white version is
+required, it must be set to \code{TRUE}.}
+
+\item{srs}{Relative size of the void space in shapes of the plot
+when \code{bw = TRUE}.}
 }
 \value{
-plot
+Plot of replicated transport profiles including all provided species
 }
 \description{
-Two empirical non-linear regression curves may be fitted. The data must be provided in
+The functions works the same way as \code{\link{transPlot}} but requires
+several experimental data sets that must be concatenated in lists.
+This allows the process reproducibility to be evaluated in the results
+analysis.
+}
+\details{
+Most \code{transmem} graphical representations are made using the package
+\code{ggplot2} so the function returns a ggplot2 object that can be
+assigned to a variable for further modification
+}
+\references{
+Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
+Springer-Verlag New York. ISBN 978-3-319-24277-4,
+\url{https://ggplot2.tidyverse.org}.
 }

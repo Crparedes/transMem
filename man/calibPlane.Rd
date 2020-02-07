@@ -4,24 +4,35 @@
 \alias{calibPlane}
 \title{Calculates regression plane for external standard calibration.}
 \usage{
-calibPlane(plane, badpoint = NULL, plot = TRUE)
+calibPlane(plane, badpoint = NULL, plot = TRUE, lines = 13,
+  theta = -30, phi = 40, xlab = "Species 1", ylab = "Species 2",
+  zlab = "Signal", pch = 18, cex = 2)
 }
 \arguments{
-\item{plane}{data frame of numeric vectors named 'Conc', 'Conc.S' and
+\item{plane}{Data frame of numeric vectors named 'Conc', 'Conc.S' and
 'Signal'. The vectors must contain the concentrations of
 the interest metal (the one whose concentration in the
 samples is to be known), the secondary metal (interferent)
-and the signals.}
+and the signals, respectively.}
 
-\item{badpoint}{numeric vector with the points to be ignored in the
+\item{badpoint}{Numeric vector with the points to be ignored in the
 regresión. This allows the easy elimination of ouliers
 whithout losing the stored measurement information.}
 
-\item{plot}{Logical. If \code{TRUE} (default) the calibration data
+\item{plot}{Logical. If \code{TRUE}, the default, the calibration data
 is plotted.}
 
-\item{order}{Not implemented yet... regression plane order. 1 for linear
-(default), more options will be aviliable soon.}
+\item{lines}{Number of lines to use in the mesh of the plane in the plot.}
+
+\item{xlab}{Label for Z axis (response).}
+
+\item{ylab}{Label for Z axis (response).}
+
+\item{zlab}{Label for Z axis (response).}
+
+\item{pch}{Plotting symbols available in R .}
+
+\item{cex}{The size of pch symbols.}
 }
 \value{
 Model of the calibration plane
@@ -37,13 +48,21 @@ The calibration plane is plotted if desired.
 }
 \details{
 A simple linear method (i.e \code{lm()}) is applied to obtain the
-regression curve. Model assumptions (e.g normal distribution of
-residuals) must be verified.
+regression equation. Model assumptions (e.g normal distribution of
+residuals) must be verified by the user.
 }
 \examples{
-  #calibData <- #CREATE DATASET
-  #calibPlane(plane = calibData)
-
+  calibData <- data.frame(Conc = c(0.0, 0.5, 1.0, 2.5, 5.0,
+                                   0.0, 0.5, 1.0, 2.5, 5.0,
+                                   0.0, 0.5, 1.0, 2.5, 5.0),
+                          Conc.S = c(0.0, 0.0, 0.0, 0.0, 0.0,
+                                     0.2, 0.2, 0.2, 0.2, 0.2,
+                                     0.6, 0.6, 0.6, 0.6, 0.6),
+                          Signal = c(0.006, 0.053, 0.120, 0.300, 0.599,
+                                     0.018, 0.065, 0.132, 0.312, 0.611,
+                                     0.042, 0.089, 0.156, 0.336, 0.635))
+  planeModel <- calibPlane(plane = calibData)
+  summary(planeModel$model)
 }
 \author{
 Cristhian Paredes, \email{craparedesca@unal.edu.co}

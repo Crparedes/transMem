@@ -1,52 +1,75 @@
-#' Plots individual transport profiles
+#' Plots transport profiles of single run experiments
 #'
-#' Given the fractions of the interest species and (optionally) up to two seccondary species,
-#' the function plots transport profiles including (if given) non-linear regression models
-#' obtained using \link{\code{transNLS}}.
+#' Given the transport complete information of the interest species and,
+#' optionally, seccondary and tertiary species, the function plots transport
+#' profiles including (if given) non-linear regression models that can be
+#' obtained using \code{\link{transTrend}}.
 #'
-#' @param trans     main species fractions in time for both phases. Must be a data frame generated using
-#'                  \link{\code{conc2frac}}. This is the only non-optional parameter
-#' @param trend     non-linear regression model of the main transport profile
-#' @param secondary secondary species fraction data. Must be a data frame generated using
-#'                  \link{\code{conc2frac}}
-#' @param tertiary  tertiaty species fraction data. Must be a data frame generated using
-#'                  \link{\code{conc2frac}}
-#' @param sec.trend type of trend line to be used for secondary and tertiary species data.
-#'                  default to \code{'spline'} but \code{'linear'}, \code{'loess'} and
-#'                  \code{'logarithmic'} are also available
-#' @param span      amount of smoothing for loess trend curves. Only used if \code{sec.trend = 'loess'}.
-#'                  Is a value between 0 and 1. Default is 0.75
-#' @param legend    logical. Should a legend be included? Default to \code{FALSE}
-#' @param xlim      numeric vector of limits to be considered for X-axis
-#' @param xbreaks   numeric vector of x-axis breaks
-#' @param ylim      numeric vector of limits to be considered for X-axis
-#' @param ybreaks   numeric vector of x-axis breaks
-#' @param size      size used for points in the plot
-#' @param bw        logical default to \code{FALSE}. If \code{TRUE}, a black and white
-#'                  plot is produced
-#' @param srs       only used if \code{bw = TRUE}. It sets the relative size of the void space
+#' Most \code{transmem} graphical representations are made using the package
+#' \code{ggplot2} so the function returns a ggplot2 object that can be
+#' assigned to a variable for further modification.
 #'
+#' @references
+#' Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
+#' Springer-Verlag New York. ISBN 978-3-319-24277-4,
+#' \url{https://ggplot2.tidyverse.org}.
 #'
-#' @return plot
-#' @import ggplot2 ggformula
+#' @param trans     Data frame with the complete transport information of
+#'                  interest species. Must be generated using
+#'                  \code{\link{conc2frac}}. This is the only non-optional
+#'                  parameter.
+#' @param trend     Non-linear regression model of the main transport profile
+#'                  generated using \code{\link{transTrend}}.
+#' @param secondary Secondary species transport data frame (see
+#'                  \code{\link{conc2frac}}).
+#' @param tertiary  Tertiaty species transport data frame (see
+#'                  \code{\link{conc2frac}}).
+#' @param sec.trend Type of trend line to be used for secondary and tertiary
+#'                  species data. Default is \code{'spline'} but
+#'                  \code{'linear'}, \code{'loess'} and \code{'logarithmic'}
+#'                  are also allowed.
+#' @param span      Amount of smoothing when \code{sec.tred = 'loess'}. Is a
+#'                  value between 0 and 1. Default is 0.75
+#' @param legend    Logical. If \code{FALSE}, the default, the legend is not
+#'                  included.
+#' @param xlab      Label to be used for x axis. Text and expression allowed.
+#' @param ylab      Label to be used for y axis. Text and expression allowed.
+#' @param xlim      Numeric vector of limits to be considered for X-axis.
+#' @param xbreaks   Numeric vector of x-axis breaks.
+#' @param ylim      Numeric vector of limits to be considered for X-axis.
+#' @param ybreaks   Numeric vector of x-axis breaks.
+#' @param size      Size used for points in the plot.
+#' @param bw        Logical, if \code{FALSE}, the default, a color version of
+#'                  the plot is given. If a black and white version is
+#'                  required, it must be set to \code{TRUE}.
+#' @param srs       Relative size of the void space in shapes of the plot
+#'                  when \code{bw = TRUE}.
+#' @param plot      Logical. If \code{TRUE}, the default, the plot is printed
+#'                  in the current graphical device.
+#'
+#' @return Plot of the transport profile considering all provided species
+#' @importFrom grDevices hcl
+#' @import ggplot2 stats graphics ggformula
 #'
 #' @export
 #'
 
 transPlot <- function(trans, trend = NULL, secondary = FALSE, tertiary = NULL,
                       sec.trend = 'spline', lin.secon = FALSE, span = 0.75,
-                      legend = FALSE,
-                      xlim = NULL, xbreaks = NULL, ylim = NULL, ybreaks = NULL,
-                      size = 2.8, bw = FALSE, srs = 0.8){
+                      legend = FALSE, xlab = 'Time (h)',
+                      ylab = expression(Phi), xlim = NULL, ylim = NULL,
+                      xbreaks = NULL, ybreaks = NULL, size = 2.8, bw = FALSE,
+                      srs = 0.8, plot = TRUE){
+  #Missing global variables issue correction
+  Time <- Fraction <- Phase <- SD <- NULL
 
-  p <- ggplot(data = trans,
-                       aes(x = Time, y = Fraction, group = Phase)) +
-    theme_bw() + #ggsci::scale_color_npg() +
-    geom_point(size = size, shape = 15, aes(color = Phase)) +
-    labs(y = expression(Phi), x = 'Time (h)') +
-    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                   axis.text.x = element_text(color = "black"),
-                   axis.text.y = element_text(color = "black"))
+  p <- ggplot(data = trans, aes(x = Time, y = Fraction, group = Phase)) +
+    theme_bw() +  geom_point(size = size, shape = 15, aes(color = Phase)) +
+    labs(y = ylab, x = xlab) +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          axis.text.x = element_text(color = "black"),
+          axis.text.y = element_text(color = "black"))
 
   if (!missing(trend)) {
     if (trend$model == 'paredes') {
@@ -110,36 +133,36 @@ transPlot <- function(trans, trend = NULL, secondary = FALSE, tertiary = NULL,
     }
   }
 
-  if (!missing(ternary)) {
-    if (class(ternary) == "data.frame") {
-      ternary$Phase <- paste0(ternary$Phase, ".")
+  if (!missing(tertiary)) {
+    if (class(tertiary) == "data.frame") {
+      tertiary$Phase <- paste0(tertiary$Phase, ".")
       if (sec.trend == 'linear') {
         p <- p + scale_shape_identity() +
-          geom_smooth(method = "lm", data = ternary, se = FALSE, size = 0.5,
+          geom_smooth(method = "lm", data = tertiary, se = FALSE, size = 0.5,
                       aes(x = Time, y = Fraction, group = Phase, color = Phase))
       }
       if (sec.trend == 'spline') {
         p <- p + scale_shape_identity() +
-          geom_spline(data = ternary, spar = 0.7, size = 0.5,
+          geom_spline(data = tertiary, spar = 0.7, size = 0.5,
                       aes(x = Time, y = Fraction, group = Phase, color = Phase))
       }
       if (sec.trend == 'logarithmic') { #Still under implementation
         p <- p + scale_shape_identity() +
-          stat_smooth(data = ternary, method = "lm", formula = y ~ log(x), size = 0.5, se = FALSE,
+          stat_smooth(data = tertiary, method = "lm", formula = y ~ log(x), size = 0.5, se = FALSE,
                       aes(x = Time, y = Fraction, group = Phase, color = Phase))
       }
       if (sec.trend == 'loess') {
         p <- p + scale_shape_identity() +
-          stat_smooth(data = ternary, method = "loess", span = span, size = 0.5, se = FALSE,
+          stat_smooth(data = tertiary, method = "loess", span = span, size = 0.5, se = FALSE,
                       aes(x = Time, y = Fraction, group = Phase, color = Phase))
       }
       if (bw) {
-        p <- p + geom_point(data = ternary, size = size,
+        p <- p + geom_point(data = tertiary, size = size,
                             aes(x = Time, y = Fraction), shape = 16, color = 'black')
-        p <- p + geom_point(data = ternary[which(ternary$Phase == 'Strip.'), ], size = size * srs,
+        p <- p + geom_point(data = tertiary[which(tertiary$Phase == 'Strip.'), ], size = size * srs,
                             aes(x = Time, y = Fraction), shape = 16, color = 'white')
       } else {
-        p <- p + geom_point(data = ternary, size = 3,
+        p <- p + geom_point(data = tertiary, size = 3,
                             aes(x = Time, y = Fraction,
                                 group = Phase, shape = 16, color = Phase))
       }

@@ -9,28 +9,44 @@
 #' The calibration plane is plotted if desired.
 #'
 #' A simple linear method (i.e \code{lm()}) is applied to obtain the
-#' regression curve. Model assumptions (e.g normal distribution of
-#' residuals) must be verified.
+#' regression equation. Model assumptions (e.g normal distribution of
+#' residuals) must be verified by the user.
 #'
-#' @param plane     data frame of numeric vectors named 'Conc', 'Conc.S' and
-#'                  'Signal'. The vectors must contain the concentrations of
-#'                  the interest metal (the one whose concentration in the
-#'                  samples is to be known), the secondary metal (interferent)
-#'                  and the signals.
-#' @param order     Not implemented yet... regression plane order. 1 for linear
-#'                  (default), more options will be aviliable soon.
+#' @param plane  Data frame of numeric vectors named 'Conc', 'Conc.S' and
+#'               'Signal'. The vectors must contain the concentrations of
+#'               the interest metal (the one whose concentration in the
+#'               samples is to be known), the secondary metal (interferent)
+#'               and the signals, respectively.
+#' @param lines  Number of lines to use in the mesh of the plane in the plot.
+#' @param xlab   Label for Z axis (response).
+#' @param ylab   Label for Z axis (response).
+#' @param zlab   Label for Z axis (response).
+#' @param pch    Plotting symbols available in R .
+#' @param cex    The size of pch symbols.
+#'
 #' @inheritParams calibCurve
 #' @return Model of the calibration plane
 #' @examples
-#'   #calibData <- #CREATE DATASET
-#'   #calibPlane(plane = calibData)
-#'
+#'   calibData <- data.frame(Conc = c(0.0, 0.5, 1.0, 2.5, 5.0,
+#'                                    0.0, 0.5, 1.0, 2.5, 5.0,
+#'                                    0.0, 0.5, 1.0, 2.5, 5.0),
+#'                           Conc.S = c(0.0, 0.0, 0.0, 0.0, 0.0,
+#'                                      0.2, 0.2, 0.2, 0.2, 0.2,
+#'                                      0.6, 0.6, 0.6, 0.6, 0.6),
+#'                           Signal = c(0.006, 0.053, 0.120, 0.300, 0.599,
+#'                                      0.018, 0.065, 0.132, 0.312, 0.611,
+#'                                      0.042, 0.089, 0.156, 0.336, 0.635))
+#'   planeModel <- calibPlane(plane = calibData)
+#'   summary(planeModel$model)
 #' @author Cristhian Paredes, \email{craparedesca@@unal.edu.co}
 #' @author Eduardo Rodriguez de San Miguel, \email{erdsmg@@unam.mx}
+#' @importFrom plot3D scatter3D
 #' @export
 #'
 
-calibPlane <- function(plane, badpoint = NULL, plot = TRUE){
+calibPlane <- function(plane, badpoint = NULL, plot = TRUE,
+                       lines = 13, theta = -30, phi = 40, xlab = "Species 1",
+                       ylab = "Species 2", zlab = "Signal", pch = 18, cex = 2){
 
   if (!missing(badpoint)) curveN <- curve[- badpoint, ] else curveN <- curve
 
@@ -43,20 +59,19 @@ calibPlane <- function(plane, badpoint = NULL, plot = TRUE){
     z <- plane$Signal
 
     # predict values on regular xy grid
-    grid.lines = 26
-    x.pred <- seq(min(x), max(x), length.out = grid.lines)
-    y.pred <- seq(min(y), max(y), length.out = grid.lines)
+    grid.lines = 13
+    x.pred <- seq(min(x), max(x), length.out = lines)
+    y.pred <- seq(min(y), max(y), length.out = lines)
     xy <- expand.grid(Conc = x.pred, Conc.S = y.pred)
-    z.pred <- matrix(predict(model, newdata = xy),
-                     nrow = grid.lines, ncol = grid.lines)
+    z.pred <- matrix(predict(model, newdata = xy), nrow = lines, ncol = lines)
 
     # fitted points for droplines to surface
     fitpoints <- predict(model)
-    plot3D::scatter3D(x, y, z, pch = 18, cex = 2,
-                      theta = -30, phi = 40, ticktype = "detailed",
-                      xlab = "Lithium", ylab = "Sodium", zlab = "Absorbance",
-                      surf = list(x = x.pred, y = y.pred, z = z.pred,
-                                  facets = NA, fit = fitpoints))
+    scatter3D(x, y, z, pch = 18, cex = 2,
+              theta = -30, phi = 40, ticktype = "detailed",
+              xlab = xlab, ylab = ylab, zlab = zlab,
+              surf = list(x = x.pred, y = y.pred, z = z.pred,
+                          facets = NA, fit = fitpoints))
   }
 
   model.inv <- lm(Conc ~ Signal + Conc.S, data = plane)
