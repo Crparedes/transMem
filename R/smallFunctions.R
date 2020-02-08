@@ -60,48 +60,23 @@ xlimTrendWR <- function(x, trans){
   return(c(0, trans[[x]]$Time[length(trans[[x]]$Time)]))
 }
 
-AddParTrend <- function(trend, pos, phase, e) {
+AddParTrend <- function(trend, i, phase, e) {
   if (phase == 'strip') {
     return(
-      function(x) {
-        ((coefficients(trend[[pos]]$strip)[1] * x^e)
-        / (1/coefficients(trend[[pos]]$strip)[2] + x^e))
+      function(x, i) {
+        ((coefficients(trend[[i]]$strip)[1] * x^e)
+        / (1/coefficients(trend[[i]]$strip)[2] + x^e))
       }
     )
   } else {
     return(
-      function(x) {
-        ((1 - (coefficients(trend[[pos]]$feed)[1] * x^e)
-         / (1/coefficients(trend[[pos]]$feed)[2] + x^e)))
+      function(x, i) {
+        ((1 - (coefficients(trend[[i]]$feed)[1] * x^e)
+         / (1/coefficients(trend[[i]]$feed)[2] + x^e)))
       }
     )
   }
 }
-
-AddParedes <- list(
-  function(x) (coefficients(trend[[1]]$strip)[1] * x^e)
-  / (1/coefficients(trend[[1]]$strip)[2] + x^e),
-  function(x) (1 - (coefficients(trend[[1]]$feed)[1] * x^e)
-               / (1/coefficients(trend[[1]]$feed)[2] + x^e)),
-  function(x) (coefficients(trend[[2]]$strip)[1] * x^e)
-  / (1/coefficients(trend[[2]]$strip)[2] + x^e),
-  function(x) (1 - (coefficients(trend[[2]]$feed)[1] * x^e)
-               / (1/coefficients(trend[[2]]$feed)[2] + x^e)),
-  function(x) (coefficients(trend[[3]]$strip)[1] * x^e)
-  / (1/coefficients(trend[[3]]$strip)[2] + x^e),
-  function(x) (1 - (coefficients(trend[[3]]$feed)[1] * x^e)
-               / (1/coefficients(trend[[3]]$feed)[2] + x^e)),
-  function(x) (coefficients(mtrend$strip)[1] * x^eccen)
-  / (1/coefficients(mtrend$strip)[2] + x^eccen),
-  function(x) (1 - (coefficients(mtrend$feed)[1] * x^eccen)
-               / (1/coefficients(mtrend$feed)[2] + x^eccen))
-)
-
-
-
-
-
-
 
 
 

@@ -52,24 +52,7 @@ transPlotWR <- function(trans, trend = NULL, secondary = NULL, tertiary = NULL,
     sec.trend = 'linear'
   }
   eccen = 1
-  AddParedes <- list(
-    function(x) (coefficients(trend[[1]]$strip)[1] * x^e)
-    / (1/coefficients(trend[[1]]$strip)[2] + x^e),
-    function(x) (1 - (coefficients(trend[[1]]$feed)[1] * x^e)
-                 / (1/coefficients(trend[[1]]$feed)[2] + x^e)),
-    function(x) (coefficients(trend[[2]]$strip)[1] * x^e)
-    / (1/coefficients(trend[[2]]$strip)[2] + x^e),
-    function(x) (1 - (coefficients(trend[[2]]$feed)[1] * x^e)
-                 / (1/coefficients(trend[[2]]$feed)[2] + x^e)),
-    function(x) (coefficients(trend[[3]]$strip)[1] * x^e)
-    / (1/coefficients(trend[[3]]$strip)[2] + x^e),
-    function(x) (1 - (coefficients(trend[[3]]$feed)[1] * x^e)
-                 / (1/coefficients(trend[[3]]$feed)[2] + x^e)),
-    function(x) (coefficients(mtrend$strip)[1] * x^eccen)
-    / (1/coefficients(mtrend$strip)[2] + x^eccen),
-    function(x) (1 - (coefficients(mtrend$feed)[1] * x^eccen)
-                 / (1/coefficients(mtrend$feed)[2] + x^eccen))
-  )
+
   if (explicit) {
     p <- ggplot(data = trans[[1]],
                          aes(x = Time, y = Fraction, group = Phase)) +
@@ -87,38 +70,18 @@ transPlotWR <- function(trans, trend = NULL, secondary = NULL, tertiary = NULL,
     }
 
     if (!missing(trend)) {
-      if (length(trans) == 2) {
-        if (trend[[1]]$model == 'paredes') {
-          e <- trend[[1]]$eccen
-          p <- p + stat_function(fun = AddParTrend(trend, 1, 'strip', e),
-                                 color = "red",
-                                 xlim = xlimTrendWR(1, trans)) +
-                   stat_function(fun = AddParedes[[2]], color = "black",
-                                 xlim = xlimTrendWR(1, trans)) +
-                   stat_function(fun = AddParedes[[3]], color = "red",
-                                 xlim = xlimTrendWR(2, trans)) +
-                   stat_function(fun = AddParedes[[4]], color = "black",
-                                 xlim = xlimTrendWR(2, trans))
+      if (trend[[1]]$model == 'paredes') {
+        e <- trend[[1]]$eccen
+        for (i in 1:length(trend)) {
+          p <- p + stat_function(fun = AddParTrend(trend, i, 'strip', e),
+                                 args = list(i = i), color = "red",
+                                 xlim = xlimTrendWR(1, trans))
+          p <- p + stat_function(fun = AddParTrend(trend, i, 'feed', e),
+                                 args = list(i = i), color = "black",
+                                 xlim = xlimTrendWR(1, trans))
         }
       }
-      if (length(trans) >= 3) {
-        if (trend[[1]]$model == 'paredes') {
-          e <- trend[[1]]$eccen
-          p <- p + stat_function(fun = AddParedes[[1]], color = "red",
-                                 xlim = xlimTrendWR(1, trans)) +
-                   stat_function(fun = AddParedes[[2]], color = "black",
-                                 xlim = xlimTrendWR(1, trans)) +
-                   stat_function(fun = AddParedes[[3]], color = "red",
-                                 xlim = xlimTrendWR(2, trans)) +
-                   stat_function(fun = AddParedes[[4]], color = "black",
-                                 xlim = xlimTrendWR(2, trans)) +
-                   stat_function(fun = AddParedes[[5]], color = "red",
-                                 xlim = xlimTrendWR(3, trans)) +
-                   stat_function(fun = AddParedes[[6]], color = "black",
-                                 xlim = xlimTrendWR(3, trans))
-          }
-        }
-      }
+    }
 
       if (!missing(secondary)) {
         for (i in 1:length(secondary)) {

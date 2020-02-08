@@ -24,7 +24,8 @@
 #' @param txt.size  Size of the text accompaining the arrow.
 #' @param pch       Shape to use in the points to be plotted.
 #' @inheritParams transPlot
-#'
+#' @example
+#' c2 <- 1:5
 #' @return plot
 #' @import ggplot2
 #' @importFrom ggplot2 aes
@@ -75,15 +76,13 @@ multiPlotSP <- function(trans, phase = 'strip', trend = NULL, legend = FALSE,
       if (trend[[1]]$model == 'paredes') {
         e <- trend[[1]]$eccen
         if (phase == 'Strip'){
-          p <- p + stat_function(fun = function(x, i) (coefficients(trend[[i]]$strip)[1] * x^e)
-                                 / (1/coefficients(trend[[i]]$strip)[2] + x^e),
+          p <- p + stat_function(fun = AddParTrend(trend, i, 'strip', e),
                                  color = cols[i], args = list(i = i),
-                                 xlim = c(0, trans[[i]]$Time[length(trans[[i]]$Time)]))
+                                 xlim = xlimTrendWR(1, trans))
         } else {
-          p <- p + stat_function(fun = function(x, i) (1 - (coefficients(trend[[i]]$feed)[1] * x^e)
-                                                    / (1/coefficients(trend[[i]]$feed)[2] + x^e)),
+          p <- p + stat_function(fun = AddParTrend(trend, i, 'feed', e),
                                  color = cols[i], args = list(i = i),
-                                 xlim = c(0, trans[[i]]$Time[length(trans[[i]]$Time)]))
+                                 xlim = xlimTrendWR(1, trans))
         }
       }
     }
@@ -121,7 +120,8 @@ multiPlotSP <- function(trans, phase = 'strip', trend = NULL, legend = FALSE,
       x <- c(x, trans[[i]]$Time[1])
       y <- c(y, trans[[i]]$Fraction[1])
     }
-    p <- p + geom_point(data = data.frame(col = as.factor(1:length(trans)), x = x, y = y),
+    p <- p + geom_point(data = data.frame(col = as.factor(1:length(trans)),
+                                          x = x, y = y),
                         aes(x = x, y = y, group = col, color = col))
   }
 
@@ -132,14 +132,16 @@ multiPlotSP <- function(trans, phase = 'strip', trend = NULL, legend = FALSE,
       if (phase == 'Strip') arw.pos <- c(0.5, 0.5, 0.8, 0.5)
       if (phase == 'Feed') arw.pos <- c(0.5, 0.5, 0.2, 0.5)
     }
-    p <- p + annotate("segment", x = arw.pos[1], xend = arw.pos[2], y = arw.pos[3],
-                      yend = arw.pos[4], arrow = arrow(angle = 12))
+    p <- p + annotate("segment", x = arw.pos[1], xend = arw.pos[2],
+                      y = arw.pos[3], yend = arw.pos[4],
+                      arrow = arrow(angle = 12))
   }
   if (!missing(arw.txt)) {
     if (missing(txt.size)) txt.size <- 3.1
     if (missing(txt.pos)) txt.pos <- c(arw.pos[1] * 1.05,
                                        mean(c(arw.pos[3], arw.pos[4])))
-    p <- p + geom_text(x = txt.pos[1], y = txt.pos[2], label = arw.txt, angle = 90, size = txt.size)
+    p <- p + geom_text(x = txt.pos[1], y = txt.pos[2], label = arw.txt,
+                       angle = 90, size = txt.size)
   }
 
   if (plot) print(p)
