@@ -26,10 +26,10 @@
 #' ¿¿EXCENTRICITY FACTOR CAN BE OBTAINED USING NLS??
 #'
 #' @param trans    data frame generated using \code{conc2frac}
-#' @param model
+#' @param model model to
 #' @param eccen    eccentricity factor for model. onli used if \code{model} is set to \code{'paredes'}
 #'
-#' @return
+#' @return non linear regression based on
 #' @export
 #'
 

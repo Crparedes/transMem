@@ -9,7 +9,12 @@ transTrend(trans, model = "paredes", eccen = 2)
 \arguments{
 \item{trans}{data frame generated using \code{conc2frac}}
 
+\item{model}{model to}
+
 \item{eccen}{eccentricity factor for model. onli used if \code{model} is set to \code{'paredes'}}
+}
+\value{
+non linear regression based on
 }
 \description{
 The data must be provided in ... ...

@@ -22,10 +22,11 @@
 #'                  is plotted.
 #' @return Model of the calibration curve.
 #' @examples
-#'   calibData <- data.frame(Conc = c(0.00, 0.05, 0.25, 0.77, 1.00),
-#'                           Signal = c(0.000, 0.031, 0.160, 0.476, 0.611))
-#'   calibCurve(curve = calibData, order = 1)
-#'   calibCurve(curve = calibData, order = 2)
+#'   data(curvelithium)
+#'   model1 <- calibCurve(curve = curvelithium, order = 1)
+#'   model2 <- calibCurve(curve = curvelithium, order = 2)
+#'   summary(model1)
+#'   summary(model2)
 #' @seealso \code{\link{calibPlane}} when using more than one explanatory
 #'   variable.
 #' @author Cristhian Paredes, \email{craparedesca@@unal.edu.co}

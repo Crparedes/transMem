@@ -21,22 +21,15 @@
 #' @param xlab   Label for Z axis (response).
 #' @param ylab   Label for Z axis (response).
 #' @param zlab   Label for Z axis (response).
-#' @param pch    Plotting symbols available in R .
+#' @param pch    Plotting symbols available in R.
 #' @param cex    The size of pch symbols.
-#'
+#' @param theta  Azimuthal angle at which the plane is visualized.
+#' @param phi    Altitude angle  at which the plane is visualized.
 #' @inheritParams calibCurve
 #' @return Model of the calibration plane
 #' @examples
-#'   calibData <- data.frame(Conc = c(0.0, 0.5, 1.0, 2.5, 5.0,
-#'                                    0.0, 0.5, 1.0, 2.5, 5.0,
-#'                                    0.0, 0.5, 1.0, 2.5, 5.0),
-#'                           Conc.S = c(0.0, 0.0, 0.0, 0.0, 0.0,
-#'                                      0.2, 0.2, 0.2, 0.2, 0.2,
-#'                                      0.6, 0.6, 0.6, 0.6, 0.6),
-#'                           Signal = c(0.006, 0.053, 0.120, 0.300, 0.599,
-#'                                      0.018, 0.065, 0.132, 0.312, 0.611,
-#'                                      0.042, 0.089, 0.156, 0.336, 0.635))
-#'   planeModel <- calibPlane(plane = calibData)
+#'   data(planelithium)
+#'   planeModel <- calibPlane(plane = planelithium)
 #'   summary(planeModel$model)
 #' @author Cristhian Paredes, \email{craparedesca@@unal.edu.co}
 #' @author Eduardo Rodriguez de San Miguel, \email{erdsmg@@unam.mx}

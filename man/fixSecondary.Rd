@@ -2,28 +2,25 @@
 % Please edit documentation in R/fixSecondary.R
 \name{fixSecondary}
 \alias{fixSecondary}
-\title{Interpolates seccondary metal concentration at missed values}
+\title{Interpolates seccondary species concentration at missed values}
 \usage{
 fixSecondary(metalConc, time, compTime, order = 1)
 }
 \arguments{
-\item{metalConc}{seccondary metal concentrations}
+\item{metalConc}{Seccondary metal concentrations}
 
-\item{time}{times at which given concentrations were determined}
+\item{time}{Times at which given concentrations were determined}
 
-\item{compTime}{times at which the seccondary metal must be interpolated}
+\item{compTime}{Times at which the seccondary metal must be interpolated}
 
-\item{order}{order of the polinomia to be fitted to data (1 or 2)}
+\item{order}{Order of the polinomia to be fitted to data (1 or 2)}
 }
 \value{
 Vector of interpolated concentrations
 }
 \description{
-If the seccondary metal concentration is determinied in just a fraction
+If the seccondary species concentration is determinied in just a fraction
 of the aliquots and for some reason the concentration in all the aliquots
-is required (i.e. when this metal interferes the principal metal
-quantification and a planar regression is necessary), the function fits
-a polynomial trend line to the existing data and interpolates the
-concentration in missing aliquots considering the times at which each
-aliquot was taken.
+is required or desired, the function fits a polynomial trend line to the
+existing data and interpolates the concentration in missing aliquots.
 }

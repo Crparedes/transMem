@@ -12,8 +12,7 @@
 #'                  the default, or \code{'feed'}.
 #' @param arw       Logical default to \code{FALSE}. If \code{TRUE}, a vertical
 #'                  arrow is drawed in the plot. Its use is reccomended when
-#'                  \code(bw = TRUE) and a trend along the profiles is to be
-#'                  indicated.
+#'                  a trend along the profiles is to be indicated.
 #' @param arw.pos   Numeric vector of the coordinates of the arrow if
 #'                  \code{arw = TRUE}. The format is (x0, x1, y0, y1)
 #' @param arw.txt   Text to be (optionally) printed alongside the arrow.
@@ -22,15 +21,26 @@
 #'                  provided, the text is located close to the arrow but a
 #'                  little alignment could be required.
 #' @param txt.size  Size of the text accompaining the arrow.
-#' @param pch       Shape to use in the points to be plotted.
-#' @inheritParams transPlot
-#' @example
-#' c2 <- 1:5
+#' @param shape     Shape to use in the points to be plotted.
+#' @inheritParams transPlotWR
+# #' @inheritParams transPlot
 #' @return plot
-#' @import ggplot2
-#' @importFrom ggplot2 aes
-#' @export
+#' @examples
+#'   data(reusecycles)
+#'   # First step is to get trend lines for each cycle:
+#'   trend <- list()
+#'   for (i in 1:length(reusecycles)) {
+#'     trend[[i]] <- transTrend(trans = reusecycles[[i]])
+#'   }
+#'   # Default plot using colors:
+#'   multiPlotSP(trans = reusecycles, trend = trend, legend = TRUE)
 #'
+#'   # Black and white plot including an arrow:
+#'   multiPlotSP(trans = reusecycles, trend = trend, legend = TRUE, bw = TRUE,
+#'               arw = TRUE, arw.pos = c(6.1, 6.1, 0.8, 0.6),
+#'               arw.txt = 'Cycle', txt.pos = c(6.15, 0.7))
+#' @import ggplot2
+#' @export
 
 multiPlotSP <- function(trans, phase = 'strip', trend = NULL, legend = FALSE,
                         xlab = 'Time (h)', ylab = expression(Phi), xlim = NULL,
@@ -38,6 +48,7 @@ multiPlotSP <- function(trans, phase = 'strip', trend = NULL, legend = FALSE,
                         plot = TRUE, shape = 15, bw = FALSE, arw = FALSE,
                         arw.pos = NULL, arw.txt = NULL,
                         txt.pos = NULL, txt.size = NULL){
+  Time <- Fraction <- Cycle <- NULL
   phase <- tolower(phase)
   if (!any(phase == c('strip', 'feed'))) {
     stop("Only 'feed' or 'strip' are allowed in phase parameter")
@@ -120,9 +131,9 @@ multiPlotSP <- function(trans, phase = 'strip', trend = NULL, legend = FALSE,
       x <- c(x, trans[[i]]$Time[1])
       y <- c(y, trans[[i]]$Fraction[1])
     }
-    p <- p + geom_point(data = data.frame(col = as.factor(1:length(trans)),
+    p <- p + geom_point(data = data.frame(Cycle = as.factor(1:length(trans)),
                                           x = x, y = y),
-                        aes(x = x, y = y, group = col, color = col))
+                        aes(x = x, y = y, group = Cycle, color = Cycle))
   }
 
   if (arw) {

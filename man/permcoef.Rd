@@ -2,11 +2,15 @@
 % Please edit documentation in R/permcoef.R
 \name{permcoef}
 \alias{permcoef}
-\title{calculates...}
+\title{Calculates permeability coefficients}
 \usage{
 permcoef(trans, conc_0, vol, area, units = c("cm^3", "cm^2", "h"))
 }
 \arguments{
+\item{trans}{dataframe}
+
+\item{vol}{volume}
+
 \item{area}{secondary metal considered}
 
 \item{initial}{logical, can a linear profile of secondary metal be assumed?}
@@ -15,5 +19,9 @@ permcoef(trans, conc_0, vol, area, units = c("cm^3", "cm^2", "h"))
 data frame
 }
 \description{
-calculates...
+Permeability coefficients across a membrane as derived from integrated
+Fick's law can be obtained from transport data according to the equation
+\deqn{\ln{\Bigg(\frac{C_{\ce{Li+}}}{C_{\ce{Li+}}^0}\Bigg)}=
+-\frac{P~a}{V}t} where \eqn{C_{\ce{Li+}}} and \eqn{C_{\ce{Li+}}^0} are
+lithium concentrarion
 }

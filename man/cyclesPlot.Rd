@@ -4,9 +4,17 @@
 \alias{cyclesPlot}
 \title{Plots transport profiles for processes involving several cycles}
 \usage{
-cyclesPlot(transList, xlim = NULL, xbreaks = NULL, ylim = NULL,
-  ybreaks = NULL, size = 1.8, legend = FALSE, xlab = "Time (h)",
-  ylab = expression(Phi))
+cyclesPlot(
+  transList,
+  xlim = NULL,
+  xbreaks = NULL,
+  ylim = NULL,
+  ybreaks = NULL,
+  size = 1.8,
+  legend = FALSE,
+  xlab = "Time (h)",
+  ylab = expression(Phi)
+)
 }
 \arguments{
 \item{transList}{List containing the (ordered) transport data of each cycle.
@@ -48,7 +56,7 @@ To get the transport data frame in concentration units use
 
 Most \code{transmem} graphical representations are made using the package
 \code{ggplot2} so the function returns a ggplot2 object that can be
-assigned to a variable for further modification
+assigned to a variable for further modification.
 }
 \references{
 Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.

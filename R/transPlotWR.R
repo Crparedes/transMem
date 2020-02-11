@@ -36,7 +36,6 @@
 #' @importFrom ggformula geom_spline
 #' @import ggplot2 stats graphics
 #' @export
-#'
 
 transPlotWR <- function(trans, trend = NULL, secondary = NULL, tertiary = NULL,
                         legend = FALSE, xlab = 'Time (h)',
@@ -125,7 +124,9 @@ transPlotWR <- function(trans, trend = NULL, secondary = NULL, tertiary = NULL,
       }
     } else {
       mtrans <- transColapse(trans = trans)
-      mtrend <- transTrend(trans = mtrans, model = 'paredes', eccen = eccen)
+      eccen <- trend[[1]]$eccen
+      mtrend <- list(transTrend(trans = mtrans, model = 'paredes',
+                                eccen = eccen))
 
       if (bw) colbw <- c("black", "black") else colbw <- c("red", "black")
 
@@ -136,9 +137,11 @@ transPlotWR <- function(trans, trend = NULL, secondary = NULL, tertiary = NULL,
               panel.grid.minor = element_blank(),
               axis.text.x = element_text(color = "black"),
               axis.text.y = element_text(color = "black")) +
-        stat_function(fun = AddParedes[[7]], color = colbw[1],
+        stat_function(fun = AddParTrend(mtrend, 1, 'strip', eccen),
+                      color = colbw[1], args = (i = 1),
                       xlim = c(0, mtrans$Time[length(mtrans$Time)])) +
-        stat_function(fun = AddParedes[[8]], color = colbw[2],
+        stat_function(fun = AddParTrend(mtrend, 1, 'feed', eccen),
+                      color = colbw[2], args = (i = 1),
                       xlim = c(0, mtrans$Time[length(mtrans$Time)]))
       p <- p + geom_errorbar(aes(x = Time, ymin = Fraction - SD,
                                  ymax = Fraction + SD, color = Phase),

@@ -21,33 +21,37 @@
 #' \url{https://ggplot2.tidyverse.org}.
 #'
 #'
-#' @param transList List containing the (ordered) transport data of each cycle.
+#' @param trans List containing the (ordered) transport data of each cycle.
 #'                  Each data frame must be generated using
 #'                  \code{\link{conc2frac}}.
-#' @inheritParams transPlot
+#' @inheritParams transPlotWR
 #'
 #' @return Plot of the transport process carried along several cycles
 #' @import ggplot2 ggformula
-#'
+#' @example
+#'   # Concentration studies
+#'   data(concentrationcycles)
+#'   cyclesPlot(trans = concentrationcycles,
+#'              ylab = expression(paste('Conc. (mg k', g^{-1}, ')')))
 #' @export
 #'
 
-cyclesPlot <- function(transList, xlim = NULL, xbreaks = NULL, ylim = NULL,
-                       ybreaks = NULL, size = 1.8, legend = FALSE,
-                       xlab = 'Time (h)', ylab = expression(Phi)){
+cyclesPlot <- function(trans, xlab = 'Time (h)', ylab = expression(Phi),
+                       xlim = NULL, xbreaks = NULL, ylim = NULL,
+                       ybreaks = NULL, size = 1.8, legend = FALSE){
   #Missing global variables issue correction
   Time <- Fraction <- Phase <- Group <- NULL
 
   cuts <- 0
-  for (i in 1:length(transList)) {
-    cuts <- c(cuts, transList[[i]]$Time[length(transList[[i]]$Time)])
+  for (i in 1:length(trans)) {
+    cuts <- c(cuts, trans[[i]]$Time[length(trans[[i]]$Time)])
   }
 
-  cTrans <- cbind(transList[[1]], Group = rep(c(1, 101),
-                    each = length(transList[[1]]$Time)/2))
-  for (i in 2:length(transList)) {
-    cTrans <- rbind(cTrans, cbind(transList[[i]], Group = rep(c(i, 100 + i),
-                      each = length(transList[[i]]$Time)/2)))
+  cTrans <- cbind(trans[[1]], Group = rep(c(1, 101),
+                    each = length(trans[[1]]$Time)/2))
+  for (i in 2:length(trans)) {
+    cTrans <- rbind(cTrans, cbind(trans[[i]], Group = rep(c(i, 100 + i),
+                      each = length(trans[[i]]$Time)/2)))
   }
 
   p <- ggplot(data = cTrans, aes(x = Time, y = Fraction, shape = Phase,
@@ -55,7 +59,7 @@ cyclesPlot <- function(transList, xlim = NULL, xbreaks = NULL, ylim = NULL,
          geom_vline(xintercept = c(cuts), linetype = 'dashed',
                     color = 'gray') +
          geom_point(size = size) + theme_bw() +
-         geom_smooth(method = 'loess', color = 'black', lwd = 0.5, span = 1) +
+         geom_smooth(method = 'loess', color = 'black', lwd = 0.5, span = 1, se = FALSE) +
          #geom_errorbar(aes(ymin = Conc - 5, ymax = Conc + 5), width = 0.4) +
          theme(panel.grid.major = element_blank(),
                panel.grid.minor = element_blank(),

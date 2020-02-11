@@ -4,8 +4,7 @@
 \alias{signal2conc}
 \title{Converts signals into concentration by using given model.}
 \usage{
-signal2conc(signal, model, dilution = NULL, planar = FALSE,
-  Conc.S = NULL)
+signal2conc(signal, model, dilution = NULL, planar = FALSE, Conc.S = NULL)
 }
 \arguments{
 \item{signal}{numeric vector of signals to be interpolated.}

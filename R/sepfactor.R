@@ -1,8 +1,8 @@
-#' calculates...
+#' Calculates...
 #'
 #' @param main     data frame generated using \code{conc2frac}. This is the only non-optional
 #'                  parameter
-#' @param main0
+#' @param main0 data frame
 #' @param secon secondary metal considered
 #' @param secon0 logical, can a linear profile of secondary metal be assumed?
 #'

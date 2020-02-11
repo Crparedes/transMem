@@ -10,6 +10,8 @@ sepfactor(main, main0, secon, secon0, order = 2)
 \item{main}{data frame generated using \code{conc2frac}. This is the only non-optional
 parameter}
 
+\item{main0}{data frame}
+
 \item{secon}{secondary metal considered}
 
 \item{secon0}{logical, can a linear profile of secondary metal be assumed?}

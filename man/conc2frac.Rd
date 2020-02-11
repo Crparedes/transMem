@@ -4,8 +4,7 @@
 \alias{conc2frac}
 \title{Creates a data frame to be used as complete selfcontained transport data set}
 \usage{
-conc2frac(feed, strip, time = NULL, correct.strip = FALSE,
-  normalize = TRUE)
+conc2frac(feed, strip, time = NULL, correct.strip = FALSE, normalize = TRUE)
 }
 \arguments{
 \item{feed}{Numeric vector with concentrations in the feed phase}
@@ -48,6 +47,11 @@ species in both phases, the phase, and the transport time transcurred.
 
 Usually this function is required after using \code{\link{signal2conc}} to
 convert instrumental signals to concentrations.
+}
+\examples{
+  transData <- conc2frac(feed = c(0.200, 0.169, 0.152, 0.141, 0.138),
+                         strip = c(0.000, 0.035, 0.045, 0.062, 0.069),
+                         time = c(0, 2, 4, 6, 8))
 }
 \author{
 Cristhian Paredes, \email{craparedesca@unal.edu.co}

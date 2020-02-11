@@ -4,9 +4,19 @@
 \alias{calibPlane}
 \title{Calculates regression plane for external standard calibration.}
 \usage{
-calibPlane(plane, badpoint = NULL, plot = TRUE, lines = 13,
-  theta = -30, phi = 40, xlab = "Species 1", ylab = "Species 2",
-  zlab = "Signal", pch = 18, cex = 2)
+calibPlane(
+  plane,
+  badpoint = NULL,
+  plot = TRUE,
+  lines = 13,
+  theta = -30,
+  phi = 40,
+  xlab = "Species 1",
+  ylab = "Species 2",
+  zlab = "Signal",
+  pch = 18,
+  cex = 2
+)
 }
 \arguments{
 \item{plane}{Data frame of numeric vectors named 'Conc', 'Conc.S' and
@@ -24,13 +34,17 @@ is plotted.}
 
 \item{lines}{Number of lines to use in the mesh of the plane in the plot.}
 
+\item{theta}{Azimuthal angle at which the plane is visualized.}
+
+\item{phi}{Altitude angle  at which the plane is visualized.}
+
 \item{xlab}{Label for Z axis (response).}
 
 \item{ylab}{Label for Z axis (response).}
 
 \item{zlab}{Label for Z axis (response).}
 
-\item{pch}{Plotting symbols available in R .}
+\item{pch}{Plotting symbols available in R.}
 
 \item{cex}{The size of pch symbols.}
 }
@@ -52,16 +66,8 @@ regression equation. Model assumptions (e.g normal distribution of
 residuals) must be verified by the user.
 }
 \examples{
-  calibData <- data.frame(Conc = c(0.0, 0.5, 1.0, 2.5, 5.0,
-                                   0.0, 0.5, 1.0, 2.5, 5.0,
-                                   0.0, 0.5, 1.0, 2.5, 5.0),
-                          Conc.S = c(0.0, 0.0, 0.0, 0.0, 0.0,
-                                     0.2, 0.2, 0.2, 0.2, 0.2,
-                                     0.6, 0.6, 0.6, 0.6, 0.6),
-                          Signal = c(0.006, 0.053, 0.120, 0.300, 0.599,
-                                     0.018, 0.065, 0.132, 0.312, 0.611,
-                                     0.042, 0.089, 0.156, 0.336, 0.635))
-  planeModel <- calibPlane(plane = calibData)
+  data(planelithium)
+  planeModel <- calibPlane(plane = planelithium)
   summary(planeModel$model)
 }
 \author{

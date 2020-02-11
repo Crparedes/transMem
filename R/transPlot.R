@@ -9,6 +9,10 @@
 #' \code{ggplot2} so the function returns a ggplot2 object that can be
 #' assigned to a variable for further modification.
 #'
+#' The function has a version that works for replicated experiments and
+#' may ilustrate repeteability. For more information see
+#' \code{\link{transPlotWR}}.
+#'
 #' @references
 #' Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 #' Springer-Verlag New York. ISBN 978-3-319-24277-4,
@@ -52,7 +56,6 @@
 #' @import ggplot2 stats graphics ggformula
 #'
 #' @export
-#'
 
 transPlot <- function(trans, trend = NULL, secondary = FALSE, tertiary = NULL,
                       sec.trend = 'spline', lin.secon = FALSE, span = 0.75,

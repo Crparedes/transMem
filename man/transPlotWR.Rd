@@ -4,11 +4,27 @@
 \alias{transPlotWR}
 \title{Plots transport profiles of replicated experiments}
 \usage{
-transPlotWR(trans, trend = NULL, secondary = NULL, tertiary = NULL,
-  legend = FALSE, xlab = "Time (h)", ylab = expression(Phi),
-  xlim = NULL, ylim = NULL, xbreaks = NULL, ybreaks = NULL,
-  lin.secon = FALSE, sec.trend = "spline", span = 0.75,
-  explicit = FALSE, size = 3, plot = TRUE, bw = FALSE, srs = 0.8)
+transPlotWR(
+  trans,
+  trend = NULL,
+  secondary = NULL,
+  tertiary = NULL,
+  legend = FALSE,
+  xlab = "Time (h)",
+  ylab = expression(Phi),
+  xlim = NULL,
+  ylim = NULL,
+  xbreaks = NULL,
+  ybreaks = NULL,
+  lin.secon = FALSE,
+  sec.trend = "spline",
+  span = 0.75,
+  explicit = FALSE,
+  size = 3,
+  plot = TRUE,
+  bw = FALSE,
+  srs = 0.8
+)
 }
 \arguments{
 \item{trans}{List of data frames with the complete transport
@@ -77,7 +93,7 @@ analysis.
 \details{
 Most \code{transmem} graphical representations are made using the package
 \code{ggplot2} so the function returns a ggplot2 object that can be
-assigned to a variable for further modification
+assigned to a variable for further modification.
 }
 \references{
 Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.

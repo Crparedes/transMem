@@ -4,11 +4,26 @@
 \alias{transPlot}
 \title{Plots transport profiles of single run experiments}
 \usage{
-transPlot(trans, trend = NULL, secondary = FALSE, tertiary = NULL,
-  sec.trend = "spline", lin.secon = FALSE, span = 0.75,
-  legend = FALSE, xlab = "Time (h)", ylab = expression(Phi),
-  xlim = NULL, ylim = NULL, xbreaks = NULL, ybreaks = NULL,
-  size = 2.8, bw = FALSE, srs = 0.8, plot = TRUE)
+transPlot(
+  trans,
+  trend = NULL,
+  secondary = FALSE,
+  tertiary = NULL,
+  sec.trend = "spline",
+  lin.secon = FALSE,
+  span = 0.75,
+  legend = FALSE,
+  xlab = "Time (h)",
+  ylab = expression(Phi),
+  xlim = NULL,
+  ylim = NULL,
+  xbreaks = NULL,
+  ybreaks = NULL,
+  size = 2.8,
+  bw = FALSE,
+  srs = 0.8,
+  plot = TRUE
+)
 }
 \arguments{
 \item{trans}{Data frame with the complete transport information of
@@ -72,7 +87,7 @@ obtained using \code{\link{transTrend}}.
 \details{
 Most \code{transmem} graphical representations are made using the package
 \code{ggplot2} so the function returns a ggplot2 object that can be
-assigned to a variable for further modification
+assigned to a variable for further modification.
 }
 \references{
 Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.

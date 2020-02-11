@@ -31,10 +31,10 @@
 #' @param normalize     Logical. If \code{TRUE}, the default, all
 #'                      concentrations are divided by the initial concentration
 #'                      in the feed phase to give results in fractions
-#' @example
-#' transData <- conc2frac(feed = c(0.200, 0.169, 0.152, 0.141, 0.138),
-#'                        strip = c(0.000, 0.035, 0.045, 0.062, 0.069),
-#'                        time = c(0, 2, 4, 6, 8))
+#' @examples
+#'   transData <- conc2frac(feed = c(0.200, 0.169, 0.152, 0.141, 0.138),
+#'                          strip = c(0.000, 0.035, 0.045, 0.062, 0.069),
+#'                          time = c(0, 2, 4, 6, 8))
 #' @return Data frame with the transport proccess information
 #' @author Cristhian Paredes, \email{craparedesca@@unal.edu.co}
 #' @author Eduardo Rodriguez de San Miguel, \email{erdsmg@@unam.mx}
