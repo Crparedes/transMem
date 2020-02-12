@@ -1,4 +1,17 @@
-#' Calculates...
+#' Calculates separation factors between two transported species
+#'
+#' Given the transport data frames of two species, the function calculates
+#' the separation factors of the main species A against a secondary species B
+#' for each sample taken. If the dataset of secondary species is
+#' smaller than that of the main species (e.g. if secondary species were
+#' determined in only half the aliquots), the transport profile is completed
+#' using \code{\link{fixSecondary}} function and a message will be printed.
+#'
+#' Separation factor for batch systems at any time different from zero is
+#' defined as \deqn{\frac{C_a/C_b}{C_a^0/C_b^0}} where \eqn{C_a} and \eqn{C_b}
+#' are the concentrations of A and B in the strip solution...
+#' ...
+#' -for continous systems the sep...
 #'
 #' @param main     data frame generated using \code{conc2frac}. This is the only non-optional
 #'                  parameter
@@ -13,7 +26,7 @@
 #' @export
 
 
-sepfactor <- function(main, main0, secon, secon0, order = 2){
+sepfactor <- function (main, secon, order = 2, continous = FALSE) {
 
   time_A <- main[which(main$Phase == "Strip"), 1]
   time_B <- secon[which(secon$Phase == "Strip"), 1]
