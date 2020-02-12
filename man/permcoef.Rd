@@ -4,24 +4,40 @@
 \alias{permcoef}
 \title{Calculates permeability coefficients}
 \usage{
-permcoef(trans, conc_0, vol, area, units = c("cm^3", "cm^2", "h"))
+permcoef(trans, conc0 = NULL, vol, area, units = c("cm^3", "cm^2", "h"))
 }
 \arguments{
-\item{trans}{dataframe}
+\item{trans}{Data frame with the complete transport information of
+interest species. Must be generated using
+\code{\link{conc2frac}}.}
 
-\item{vol}{volume}
+\item{conc0}{Initial concentration of the species in feed solution. The
+value may be extracted from transport information if data
+frame provided in \code{trans} is not normalized. See
+\code{\link{conc2frac}} for details.}
 
-\item{area}{secondary metal considered}
+\item{vol}{Volume of feed solution.}
 
-\item{initial}{logical, can a linear profile of secondary metal be assumed?}
+\item{area}{Membrane exposed area to the feed solution.}
+
+\item{units}{Units in which volume, area and time are provided. Volume
+and area are function's parameters while the time is
+extracted from \code{trans} data frame.}
 }
 \value{
-data frame
+Premeability coefficient for species in meters per second.
 }
 \description{
 Permeability coefficients across a membrane as derived from integrated
 Fick's law can be obtained from transport data according to the equation
 \deqn{\ln{\Bigg(\frac{C_{\ce{Li+}}}{C_{\ce{Li+}}^0}\Bigg)}=
--\frac{P~a}{V}t} where \eqn{C_{\ce{Li+}}} and \eqn{C_{\ce{Li+}}^0} are
-lithium concentrarion
+-\frac{P~a}{V}t} where \eqn{P} is the permeability coefficient, \eqn{a} is
+the membrane exposed area, \eqn{C_{\ce{Li+}}} and \eqn{C_{\ce{Li+}}^0} are
+lithium concentrations at any time and at initial time in the feed phase,
+respectively, and \eqn{V} is solution volume.
+}
+\details{
+Species concentration units may be arbitrary as long as the permeability
+coefficient is calculated using the change in concentration ratio which is,
+as most ratios, adimentional.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/sepfactor.R
 \name{sepfactor}
 \alias{sepfactor}
-\title{calculates...}
+\title{Calculates...}
 \usage{
 sepfactor(main, main0, secon, secon0, order = 2)
 }
@@ -15,10 +15,12 @@ parameter}
 \item{secon}{secondary metal considered}
 
 \item{secon0}{logical, can a linear profile of secondary metal be assumed?}
+
+\item{order}{asdf}
 }
 \value{
 data frame
 }
 \description{
-calculates...
+Calculates...
 }

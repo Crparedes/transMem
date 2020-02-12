@@ -45,6 +45,8 @@ species data. Default is \code{'spline'} but
 \code{'linear'}, \code{'loess'} and \code{'logarithmic'}
 are also allowed.}
 
+\item{lin.secon}{Deprecated. Use \code{sec-trend = 'linear'}}
+
 \item{span}{Amount of smoothing when \code{sec.tred = 'loess'}. Is a
 value between 0 and 1. Default is 0.75}
 
@@ -88,6 +90,10 @@ obtained using \code{\link{transTrend}}.
 Most \code{transmem} graphical representations are made using the package
 \code{ggplot2} so the function returns a ggplot2 object that can be
 assigned to a variable for further modification.
+
+The function has a version that works for replicated experiments and
+may ilustrate repeteability. For more information see
+\code{\link{transPlotWR}}.
 }
 \references{
 Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.

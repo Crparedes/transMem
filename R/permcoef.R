@@ -30,6 +30,11 @@
 #'   data(reusecycles)
 #'   permcoef(trans = reusecycles[[1]], conc_0 = 2, vol = 85,
 #'            area = pi * 1.25^2, units = c('cm^3', 'cm^2', 'h'))
+#'   # Warning if normalized data is used and no initial concentration is given
+#'   \dontrun{
+#'     permcoef(trans = reusecycles[[1]], vol = 85,
+#'              area = pi * 1.25^2, units = c('cm^3', 'cm^2', 'h'))
+#'   }
 #' @export
 
 
@@ -38,10 +43,10 @@ permcoef <- function(trans, conc0 = NULL, vol, area,
   if (missing(conc0)) {
     conc0 <- trans$Fraction[1]
     if (conc0 == 1) {
-      warning('trans data frame seems to be normalized. This may yield an
-incorrect permeability coefficient. Please ensure data frame is not
-normalized (see ?conc2frac) or provide initial species concentration at conc0
-parameter')
+      warning('trans data frame seems to be normalized and no initial
+    concentration value was provided. This may yield an incorrect permeability
+    coefficient. Please ensure data frame is not normalized (see ?conc2frac) or
+    provide initial species concentration at conc0 parameter')
     }
   }
   conc <- trans[which(trans$Phase == "Feed"), ]

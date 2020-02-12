@@ -4,10 +4,10 @@
 \alias{fixSecondary}
 \title{Interpolates seccondary species concentration at missed values}
 \usage{
-fixSecondary(metalConc, time, compTime, order = 1)
+fixSecondary(conc, time, compTime, order = 1)
 }
 \arguments{
-\item{metalConc}{Seccondary metal concentrations}
+\item{conc}{Secondary metal concentrations}
 
 \item{time}{Times at which given concentrations were determined}
 
@@ -23,4 +23,7 @@ If the seccondary species concentration is determinied in just a fraction
 of the aliquots and for some reason the concentration in all the aliquots
 is required or desired, the function fits a polynomial trend line to the
 existing data and interpolates the concentration in missing aliquots.
+}
+\details{
+The function is use
 }

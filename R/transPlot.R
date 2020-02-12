@@ -32,6 +32,7 @@
 #'                  species data. Default is \code{'spline'} but
 #'                  \code{'linear'}, \code{'loess'} and \code{'logarithmic'}
 #'                  are also allowed.
+#' @param lin.secon Deprecated. Use \code{sec-trend = 'linear'}
 #' @param span      Amount of smoothing when \code{sec.tred = 'loess'}. Is a
 #'                  value between 0 and 1. Default is 0.75
 #' @param legend    Logical. If \code{FALSE}, the default, the legend is not

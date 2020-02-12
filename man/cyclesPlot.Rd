@@ -5,27 +5,31 @@
 \title{Plots transport profiles for processes involving several cycles}
 \usage{
 cyclesPlot(
-  transList,
+  trans,
+  xlab = "Time (h)",
+  ylab = expression(Phi),
   xlim = NULL,
-  xbreaks = NULL,
   ylim = NULL,
+  xbreaks = NULL,
   ybreaks = NULL,
   size = 1.8,
-  legend = FALSE,
-  xlab = "Time (h)",
-  ylab = expression(Phi)
+  legend = FALSE
 )
 }
 \arguments{
-\item{transList}{List containing the (ordered) transport data of each cycle.
+\item{trans}{List containing the (ordered) transport data of each cycle.
 Each data frame must be generated using
 \code{\link{conc2frac}}.}
 
+\item{xlab}{Label to be used for x axis. Text and expression allowed.}
+
+\item{ylab}{Label to be used for y axis. Text and expression allowed.}
+
 \item{xlim}{Numeric vector of limits to be considered for X-axis.}
 
-\item{xbreaks}{Numeric vector of x-axis breaks.}
-
 \item{ylim}{Numeric vector of limits to be considered for X-axis.}
+
+\item{xbreaks}{Numeric vector of x-axis breaks.}
 
 \item{ybreaks}{Numeric vector of x-axis breaks.}
 
@@ -33,10 +37,6 @@ Each data frame must be generated using
 
 \item{legend}{Logical. If \code{FALSE}, the default, the legend is not
 included.}
-
-\item{xlab}{Label to be used for x axis. Text and expression allowed.}
-
-\item{ylab}{Label to be used for y axis. Text and expression allowed.}
 }
 \value{
 Plot of the transport process carried along several cycles

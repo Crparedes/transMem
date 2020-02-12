@@ -37,7 +37,7 @@
 #'
 
 cyclesPlot <- function(trans, xlab = 'Time (h)', ylab = expression(Phi),
-                       xlim = NULL, xbreaks = NULL, ylim = NULL,
+                       xlim = NULL, ylim = NULL,xbreaks = NULL,
                        ybreaks = NULL, size = 1.8, legend = FALSE){
   #Missing global variables issue correction
   Time <- Fraction <- Phase <- Group <- NULL

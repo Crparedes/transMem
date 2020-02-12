@@ -26,7 +26,7 @@ transColapse <- function(trans){
 
 # Add secondary metal
 AddSecondary <- function(secondary, p){
-  sec.trend <- Time <- Fraction <- Phase <- span <- size = NULL
+  sec.trend <- Time <- Fraction <- Phase <- span <- size <- NULL
   secondary$Phase <- paste0(secondary$Phase, ".")
   if (sec.trend == 'linear') {
     p <- p + scale_shape_identity() +

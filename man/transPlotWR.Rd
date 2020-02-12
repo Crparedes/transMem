@@ -56,6 +56,8 @@ included.}
 
 \item{ybreaks}{Numeric vector of x-axis breaks.}
 
+\item{lin.secon}{Deprecated. Use \code{sec-trend = 'linear'}}
+
 \item{sec.trend}{Type of trend line to be used for secondary and tertiary
 species data. Default is \code{'spline'} but
 \code{'linear'}, \code{'loess'} and \code{'logarithmic'}
