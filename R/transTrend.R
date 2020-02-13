@@ -1,39 +1,87 @@
-#' Fits non-linear trend curve to transport profiles
+#' Fits trend equations that model transport profiles
 #'
-#' The data must be provided in ... ...
+#' Given a transport profile dataset, the results may be studied and
+#' comparated in terms of empirical functions that describe the transport
+#' process in terms of regression parameters that can be asociated to
+#' the performance of the membrane system. The parameters are obtained by
+#' non-linear regression and are independent for each solution at both sides
+#' of the membrane. This is particulary useful when performing system
+#' optimizations since the parameters can be used as response variables
+#' depending on the optimization goal.
 #'
-#' @section Details:
-#' Two empirical non-linear regression curves may be fitted....
-#' Rodriguez-de-San-Miguel et.al. model, the fractions (\eqn{\Phi}) in feed or
-#' strip phases as a function of time (\eqn{t}) are fitted to \deqn{\Phi=Ae^{-t/d}+y_0}
-#' where \eqn{A}, \eqn{d} and \eqn{y_0} are the parameters to be determined. In this model,
-#' the \eqn{d} parameter determines the steepness of variation, \eqn{y_0} reflects
-#' the limiting value to which the profiles tend to at long pertraction times and \eqn{A}
-#' is not supposed to play an important role in the transport description.
-#' In the Paredes model the equations adjusted to the strip and feed phase are sligthly
-#' different. The transported fraction to the strip phase is
-#' \deqn{\Phi_s=\frac{\alpha_s t^\gamma}{\beta_s^{-1}+t^\gamma}} while the
-#' fraction depleted from the feed phase is
-#' \deqn{\Phi_f=1-\frac{\alpha_f t^\gamma}{\beta_f^{-1}+t^\gamma}}. In those equations \eqn{\alpha}
-#' relates the maximun fraction transported at long pertraction times, \eqn{\beta}
-#' relates the steepness of variation and \eqn{\gamma} is an excentricity factor to improve the adjustment.
-#' The adjustable parameters are \eqn{\alpha} and \eqn{\beta}. The subscripts \eqn{s} and \eqn{f}
-#' relates to strip and feed phases, respectively. If no significant accumulation is presented in the
-#' membrane, the parameters should be quite similar for both phases and a consensus value can be obtained
-#' by various ways. While the aritmetic mean could be appropiate, in order to improve the confidence limit
-#' inherent to the non linear regression fitting, the values can be combinated by using meta-analisys tools.
+#' Two empirical equations have been implemented in the function. In the
+#' \code{'rodriguez'} model (Rodriguez de San Miguel et al., 2014), the
+#' fractions (\eqn{\Phi}) in feed or
+#' strip phases as a function of time (\eqn{t}) are fitted to
+#' \deqn{\Phi=Ae^{-t/d}+y_0} where \eqn{A}, \eqn{d} and \eqn{y_0} are the
+#' parameters to be finded. In this model, parameter \eqn{d} determines the
+#' steepness of the species concentration change in time, \eqn{y_0} reflects
+#' the limiting value to which the profiles tend to at long pertraction
+#' times and \eqn{A} is not supposed to play an important role in the
+#' transport description. The parameters of each phase are summarized in
+#' the functions \eqn{G_{feed}} and \eqn{G_{strip}} for the feed and
+#' strip phases: \deqn{G_{feed}=\frac{1}{y_0d},\qquadG_{strip}=\frac{y_0}{d}}.
+#' The bigger each \eqn{G} function, the better the transport process.
 #'
-#' ¿¿EXCENTRICITY FACTOR CAN BE OBTAINED USING NLS??
+#' In the \code{'paredes'} model (Paredes and Rodriguez de San Miguel, 2020),
+#' the transported fraction to the strip solution and from the feed solution
+#' are adjusted to the equations:
+#' \deqn{\Phi_s=\frac{\alpha_s t^\gamma}{\beta_s^{-1}+t^\gamma}}
+#' \deqn{\Phi_f=1-\frac{\alpha_f t^\gamma}{\beta_f^{-1}+t^\gamma}}
+#' respectively. In those equations, adjustable parameters \eqn{\alpha} and
+#' \eqn{\beta} relates the
+#' maximun fraction transported at long pertraction times and the steepness
+#' of the concentration change. \eqn{\gamma} is an excentricity factor to
+#' improve the adjustment and does not need to be changed for systems under
+#' similar conditions. The subscripts \eqn{s} and \eqn{f} means strip and
+#' feed phases, respectively.
 #'
-#' @param trans    data frame generated using \code{conc2frac}
-#' @param model model to
-#' @param eccen    eccentricity factor for model. onli used if \code{model} is set to \code{'paredes'}
+#' The later model has the disadvantage over the former that the equation
+#' to use depends on the phase to be modeled but has the great advantage
+#' that if no significant accumulation is presented in the membrane,
+#' the parameters \eqn{\alpha} and \eqn{\beta} should be quite similar for
+#' both phases and a consensus value can be obtained by various simple ways
+#' while the other model yields quite diferent parameters for each phase.
+#' Paredes parameters are combined by using meta-analisys tools that considers
+#' the asociated uncertainty due to lack of fit to get summarized,
+#' lower-uncertainty results. In addition, once the \eqn{\gamma} parameter
+#' has been choosen, the later model uses only two parameters and while
+#' comparing models with similar performance, the simpler the better.
+#' @example
+#'   data(seawaterLiNaK)
+#'   model1 <- transTrend(trans = seawaterLiNaK$Lithium.1)
+#'   model2 <- transTrend(trans = seawaterLiNaK$Lithium.1,
+#'                        model = 'rodriguez')
+#'   print(model1)
+#'   print(model2)
+#' @references
+#'   E. Rodriguez de San Miguel, X. Vital, J. de Gyves, Cr(vi) transport via a
+#'   sup ported ionic liquid membrane containing cyphos il101 as carrier:
+#'   System analysis and optimization through experimental design strategies,
+#'   Journal of Hazardous Materials 273 (2014) 253 - 262.
+#'   doi:10.1016/j.jhazmat.2014.03.052.
 #'
-#' @return non linear regression based on
+#'   C. Paredes, E. Rodriguez de San Miguel, Polymer inclusion membrane for
+#'   the recovery and concentration of lithium from seawater. Master thesis,
+#'   Universidad Nacional Autónoma de México, México City, México, 2020.
+#' @param model  Model to be used in the regression. Default to
+#'               \code{'paredes'} but \code{'rodriguez'} also allowed.
+#'               See details.
+#' @param eccen  Eccentricity factor (\eqn{\gamma}) for model when
+#'               \code{model} is set to \code{'paredes'}
+#' @inheritParams transPlot
+#' @return A list of 4 or 5 components (depending on the model choosen) with
+#'         the regression information for each phase, the eccentricity factor
+#'         (only in Paredes model), the name of the model used, and the
+#'         sumarized results of the regression: \eqn{G_{feed}} and
+#'         \eqn{G_{strip}} values for the Rodriguez model or summarized
+#'         \eqn{\alpha} and \eqn{\beta} parameters with asocciated uncertainty
+#'         for the Paredes model.
+#' @author Cristhian Paredes, \email{craparedesca@@unal.edu.co}
+#' @author Eduardo Rodriguez de San Miguel, \email{erdsmg@@unam.mx}
 #' @export
-#'
 
-transTrend <- function(trans, model = 'paredes', eccen = 2){
+transTrend <- function(trans, model = 'paredes', eccen = 1){
   name <- deparse(substitute(trans))
 
   if (grepl('Transport', name, ignore.case = TRUE)) {
@@ -47,20 +95,31 @@ transTrend <- function(trans, model = 'paredes', eccen = 2){
   Time  <- unique(trans$Time)
 
   if (model == 'paredes') {
-    nlsFeed   <- nls(Feed ~ 1 - (a * Time^eccen) / (1 / b + Time^eccen), start = list(a = 1, b = 0.5))
-    nlsStrip  <- nls(Strip ~ (a * Time^eccen) / (1 / b + Time^eccen), start = list(a = 1, b = 0.5))
-    nlsModels <- list(feed = nlsFeed, strip = nlsStrip, eccen = eccen, model = 'paredes')
-    alpha = (summary(nlsFeed)$coefficients[1, 1] / summary(nlsFeed)$coefficients[1, 2]^2 +
-               summary(nlsStrip)$coefficients[1, 1] / summary(nlsStrip)$coefficients[1, 2]^2) / (
-                 summary(nlsFeed)$coefficients[1, 2]^-2 + summary(nlsStrip)$coefficients[1, 2]^-2)
+    nlsFeed   <- nls(Feed ~ 1 - (a * Time^eccen) / (1 / b + Time^eccen),
+                     start = list(a = 1, b = 0.5))
+    nlsStrip  <- nls(Strip ~ (a * Time^eccen) / (1 / b + Time^eccen),
+                     start = list(a = 1, b = 0.5))
+    nlsModels <- list(feed = nlsFeed, strip = nlsStrip, eccen = eccen,
+                      model = 'paredes')
+    alpha = (summary(nlsFeed)$coefficients[1, 1] /
+               summary(nlsFeed)$coefficients[1, 2]^2 +
+               summary(nlsStrip)$coefficients[1, 1] /
+               summary(nlsStrip)$coefficients[1, 2]^2) /
+               (summary(nlsFeed)$coefficients[1, 2]^-2 +
+                 summary(nlsStrip)$coefficients[1, 2]^-2)
 
-    SE_alpha = sqrt(1 / (summary(nlsFeed)$coefficients[1, 2]^-2 + summary(nlsStrip)$coefficients[1, 2]^-2))
+    SE_alpha = sqrt(1 / (summary(nlsFeed)$coefficients[1, 2]^-2 +
+                           summary(nlsStrip)$coefficients[1, 2]^-2))
 
-    beta  = (summary(nlsFeed)$coefficients[2, 1] / summary(nlsFeed)$coefficients[2, 2]^2 +
-               summary(nlsStrip)$coefficients[2, 1] / summary(nlsStrip)$coefficients[2, 2]^2) / (
-                 summary(nlsFeed)$coefficients[2, 2]^-2 + summary(nlsStrip)$coefficients[2, 2]^-2)
+    beta  = (summary(nlsFeed)$coefficients[2, 1] /
+               summary(nlsFeed)$coefficients[2, 2]^2 +
+               summary(nlsStrip)$coefficients[2, 1] /
+               summary(nlsStrip)$coefficients[2, 2]^2) /
+               (summary(nlsFeed)$coefficients[2, 2]^-2 +
+                  summary(nlsStrip)$coefficients[2, 2]^-2)
 
-    SE_beta = sqrt(1 / (summary(nlsFeed)$coefficients[2, 2]^-2 + summary(nlsStrip)$coefficients[2, 2]^-2))
+    SE_beta = sqrt(1 / (summary(nlsFeed)$coefficients[2, 2]^-2 +
+                          summary(nlsStrip)$coefficients[2, 2]^-2))
 
     nlsModels$Result <- c(alpha, SE_alpha, beta, SE_beta)
     names(nlsModels$Result) <- c('alpha', 'SE_alpha', 'beta', 'SE_beta')
@@ -68,11 +127,15 @@ transTrend <- function(trans, model = 'paredes', eccen = 2){
 
   if (model == 'rodriguez') {
     # DOI: 10.1016/j.jhazmat.2014.03.052
-    nlsFeed  <- nls(Feed ~ A * exp(- Time / d) + Yo, start = list(A = 0.5, d = 0.5, Yo = 0))
-    nlsStrip <- nls(Strip ~ A * exp(- Time / d) + Yo, start = list(A = -0.5, d = 0.5, Yo = 1))
+    nlsFeed  <- nls(Feed ~ A * exp(- Time / d) + Yo,
+                    start = list(A = 0.5, d = 0.5, Yo = 0))
+    nlsStrip <- nls(Strip ~ A * exp(- Time / d) + Yo,
+                    start = list(A = -0.5, d = 0.5, Yo = 1))
     nlsModels <- list(feed = nlsFeed, strip = nlsStrip, model = 'rodriguez')
-    nlsModels$Result <- c(1 / (summary(nlsFeed)$coefficients[3, 1] * summary(nlsFeed)$coefficients[2, 1]),
-                          summary(nlsStrip)$coefficients[3, 1] / summary(nlsStrip)$coefficients[2, 1])
+    nlsModels$Result <- c(1 / (summary(nlsFeed)$coefficients[3, 1] *
+                                 summary(nlsFeed)$coefficients[2, 1]),
+                          summary(nlsStrip)$coefficients[3, 1] /
+                            summary(nlsStrip)$coefficients[2, 1])
     names(nlsModels$Result) <- c('G_feed', 'G_strip')
   }
 

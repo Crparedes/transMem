@@ -4,25 +4,28 @@
 #' \code{\link{calibCurve}} or \code{\link{calibPlane}}), the function
 #' interpolates the signals of samples to get the associated concentrations.
 #'
-#' @param signal   numeric vector of signals to be interpolated.
-#' @param model    regression model for the calibration. Must be obtained
+#' @param signal   Numeric vector of signals to be interpolated.
+#' @param model    Regression model for the calibration. Must be obtained
 #'                 using \code{\link{calibCurve}} or \code{\link{calibPlane}}.
-#' @param dilution numeric vector of dilution factors applied to samples
+#' @param dilution Numeric vector of dilution factors applied to samples
 #'                 before measurement
-#' @param planar   logical, defalut to \code{FALSE}. It must be set to TRUE if
+#' @param planar   Logical, defalut to \code{FALSE}. It must be set to TRUE if
 #'                 more than one explicatory variable is used. A planar
 #'                 calibration model must be provided to \code{model}.
-#' @param Conc.S   numeric vector of the concentrations of the interferent
-#'                 specie to be considered when a planar calibration model is
+#' @param Conc.S   Numeric vector of the concentrations of the interferent
+#'                 species to be considered when a planar calibration model is
 #'                 provided to \code{model}. It is taken into account if
-#'                 \code{planar} is set to TRUE.
+#'                 \code{planar = TRUE}.
 #'
 #' @return Numeric vector of concentrations
 #' @importFrom cmna quadratic2
 #' @examples
-#'   #calibData <- #CREATE DATASET!!!!
-#'   #calibPlane(plane = calibData)
+#'   # A regression model is needed:
+#'   data(curvelithium)
+#'   model <- calibCurve(curve = curvelithium, order = 2)
 #'
+#'   signal <- c(0.395, 0.259, 0.188, 0.141, 0.110, 0.095, 0.084)
+#'   (conc <- signal2conc(signal = signal, model = model))
 #' @author Cristhian Paredes, \email{craparedesca@@unal.edu.co}
 #' @author Eduardo Rodriguez de San Miguel, \email{erdsmg@@unam.mx}
 #' @export

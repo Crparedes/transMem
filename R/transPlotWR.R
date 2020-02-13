@@ -30,11 +30,25 @@
 #'                  with the standard deviation values. If \code{TRUE}, all
 #'                  provided data is plotted in the same graphic.
 #' @inheritParams transPlot
-#'
 #' @return Plot of replicated transport profiles including all provided species
+#' @examples
+#'   data(seawaterLiNaK)
+#'   # Transport data frames and transport NLS regresions must be in lists
+#'   lithium <- list(seawaterLiNaK$Lithium.1, seawaterLiNaK$Lithium.2)
+#'   sodium <- list(seawaterLiNaK$Sodium.1, seawaterLiNaK$Sodium.2)
+#'   potassium <- list(seawaterLiNaK$Potassium.1, seawaterLiNaK$Potassium.2)
+#'   trend <- list(transTrend(trans = seawaterLiNaK$Lithium.1),
+#'                 transTrend(trans = seawaterLiNaK$Lithium.1))
+#'
+#'   transPlotWR(trans = lithium, trend = trend, secondary = sodium,
+#'               tertiary = potassium, bw = TRUE, srs = 0.75)
+#'   transPlotWR(trans = lithium, trend = trend, secondary = sodium,
+#'               tertiary = potassium, bw = TRUE, srs = 0.5)
 #' @importFrom grDevices hcl
 #' @importFrom ggformula geom_spline
 #' @import ggplot2 stats graphics
+#' @author Cristhian Paredes, \email{craparedesca@@unal.edu.co}
+#' @author Eduardo Rodriguez de San Miguel, \email{erdsmg@@unam.mx}
 #' @export
 
 transPlotWR <- function(trans, trend = NULL, secondary = NULL, tertiary = NULL,

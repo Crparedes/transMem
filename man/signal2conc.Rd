@@ -7,22 +7,22 @@
 signal2conc(signal, model, dilution = NULL, planar = FALSE, Conc.S = NULL)
 }
 \arguments{
-\item{signal}{numeric vector of signals to be interpolated.}
+\item{signal}{Numeric vector of signals to be interpolated.}
 
-\item{model}{regression model for the calibration. Must be obtained
+\item{model}{Regression model for the calibration. Must be obtained
 using \code{\link{calibCurve}} or \code{\link{calibPlane}}.}
 
-\item{dilution}{numeric vector of dilution factors applied to samples
+\item{dilution}{Numeric vector of dilution factors applied to samples
 before measurement}
 
-\item{planar}{logical, defalut to \code{FALSE}. It must be set to TRUE if
+\item{planar}{Logical, defalut to \code{FALSE}. It must be set to TRUE if
 more than one explicatory variable is used. A planar
 calibration model must be provided to \code{model}.}
 
-\item{Conc.S}{numeric vector of the concentrations of the interferent
-specie to be considered when a planar calibration model is
+\item{Conc.S}{Numeric vector of the concentrations of the interferent
+species to be considered when a planar calibration model is
 provided to \code{model}. It is taken into account if
-\code{planar} is set to TRUE.}
+\code{planar = TRUE}.}
 }
 \value{
 Numeric vector of concentrations
@@ -33,9 +33,12 @@ After a calibration model is established (either by using
 interpolates the signals of samples to get the associated concentrations.
 }
 \examples{
-  #calibData <- #CREATE DATASET!!!!
-  #calibPlane(plane = calibData)
+  # A regression model is needed:
+  data(curvelithium)
+  model <- calibCurve(curve = curvelithium, order = 2)
 
+  signal <- c(0.395, 0.259, 0.188, 0.141, 0.110, 0.095, 0.084)
+  (conc <- signal2conc(signal = signal, model = model))
 }
 \author{
 Cristhian Paredes, \email{craparedesca@unal.edu.co}

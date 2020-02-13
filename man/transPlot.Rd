@@ -45,7 +45,7 @@ species data. Default is \code{'spline'} but
 \code{'linear'}, \code{'loess'} and \code{'logarithmic'}
 are also allowed.}
 
-\item{lin.secon}{Deprecated. Use \code{sec-trend = 'linear'}}
+\item{lin.secon}{Deprecated. Use \code{sec.trend = 'linear'} intshead.}
 
 \item{span}{Amount of smoothing when \code{sec.tred = 'loess'}. Is a
 value between 0 and 1. Default is 0.75}
@@ -72,7 +72,8 @@ the plot is given. If a black and white version is
 required, it must be set to \code{TRUE}.}
 
 \item{srs}{Relative size of the void space in shapes of the plot
-when \code{bw = TRUE}.}
+when \code{bw = TRUE}. Needs to be adjusted according to
+the graphical device resolution and desired apparience.}
 
 \item{plot}{Logical. If \code{TRUE}, the default, the plot is printed
 in the current graphical device.}
@@ -95,8 +96,26 @@ The function has a version that works for replicated experiments and
 may ilustrate repeteability. For more information see
 \code{\link{transPlotWR}}.
 }
+\examples{
+  data(seawaterLiNaK)
+  trend <- transTrend(trans = seawaterLiNaK$Lithium.1, model = 'paredes')
+  transPlot(trans = seawaterLiNaK$Lithium.1, trend = trend,
+            secondary = seawaterLiNaK$Sodium.1,
+            tertiary = seawaterLiNaK$Potassium.1)
+  transPlot(trans = seawaterLiNaK$Lithium.1, trend = trend,
+            secondary = seawaterLiNaK$Sodium.1,
+            tertiary = seawaterLiNaK$Potassium.1, bw = TRUE, srs = 0.75)
+  transPlot(trans = seawaterLiNaK$Lithium.1, trend = trend,
+            secondary = seawaterLiNaK$Sodium.1,
+            tertiary = seawaterLiNaK$Potassium.1, bw = TRUE, srs = 0.5)
+}
 \references{
 Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 Springer-Verlag New York. ISBN 978-3-319-24277-4,
 \url{https://ggplot2.tidyverse.org}.
+}
+\author{
+Cristhian Paredes, \email{craparedesca@unal.edu.co}
+
+Eduardo Rodriguez de San Miguel, \email{erdsmg@unam.mx}
 }

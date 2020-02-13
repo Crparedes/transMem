@@ -56,7 +56,7 @@ included.}
 
 \item{ybreaks}{Numeric vector of x-axis breaks.}
 
-\item{lin.secon}{Deprecated. Use \code{sec-trend = 'linear'}}
+\item{lin.secon}{Deprecated. Use \code{sec.trend = 'linear'} intshead.}
 
 \item{sec.trend}{Type of trend line to be used for secondary and tertiary
 species data. Default is \code{'spline'} but
@@ -81,7 +81,8 @@ the plot is given. If a black and white version is
 required, it must be set to \code{TRUE}.}
 
 \item{srs}{Relative size of the void space in shapes of the plot
-when \code{bw = TRUE}.}
+when \code{bw = TRUE}. Needs to be adjusted according to
+the graphical device resolution and desired apparience.}
 }
 \value{
 Plot of replicated transport profiles including all provided species
@@ -97,8 +98,27 @@ Most \code{transmem} graphical representations are made using the package
 \code{ggplot2} so the function returns a ggplot2 object that can be
 assigned to a variable for further modification.
 }
+\examples{
+  data(seawaterLiNaK)
+  # Transport data frames and transport NLS regresions must be in lists
+  lithium <- list(seawaterLiNaK$Lithium.1, seawaterLiNaK$Lithium.2)
+  sodium <- list(seawaterLiNaK$Sodium.1, seawaterLiNaK$Sodium.2)
+  potassium <- list(seawaterLiNaK$Potassium.1, seawaterLiNaK$Potassium.2)
+  trend <- list(transTrend(trans = seawaterLiNaK$Lithium.1),
+                transTrend(trans = seawaterLiNaK$Lithium.1))
+
+  transPlotWR(trans = lithium, trend = trend, secondary = sodium,
+              tertiary = potassium, bw = TRUE, srs = 0.75)
+  transPlotWR(trans = lithium, trend = trend, secondary = sodium,
+              tertiary = potassium, bw = TRUE, srs = 0.5)
+}
 \references{
 Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 Springer-Verlag New York. ISBN 978-3-319-24277-4,
 \url{https://ggplot2.tidyverse.org}.
+}
+\author{
+Cristhian Paredes, \email{craparedesca@unal.edu.co}
+
+Eduardo Rodriguez de San Miguel, \email{erdsmg@unam.mx}
 }

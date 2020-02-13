@@ -41,3 +41,8 @@ Species concentration units may be arbitrary as long as the permeability
 coefficient is calculated using the change in concentration ratio which is,
 as most ratios, adimentional.
 }
+\author{
+Cristhian Paredes, \email{craparedesca@unal.edu.co}
+
+Eduardo Rodriguez de San Miguel, \email{erdsmg@unam.mx}
+}

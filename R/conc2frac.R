@@ -16,8 +16,8 @@
 #' Usually this function is required after using \code{\link{signal2conc}} to
 #' convert instrumental signals to concentrations.
 #'
-#' @param feed          Numeric vector with concentrations in the feed phase
-#' @param strip         Numeric vector with concentrations in the strip phase
+#' @param feed          Numeric vector with concentrations in the feed phase.
+#' @param strip         Numeric vector with concentrations in the strip phase.
 #' @param time          Numeric vector with time at which the aliquots were
 #'                      sampled. It is an optional parameter, if not provided
 #'                      regular unitary time intervals are assumed.
@@ -30,7 +30,7 @@
 #'                      significative or there is background noise.
 #' @param normalize     Logical. If \code{TRUE}, the default, all
 #'                      concentrations are divided by the initial concentration
-#'                      in the feed phase to give results in fractions
+#'                      in the feed phase to give results in fractions.
 #' @examples
 #'   transData <- conc2frac(feed = c(0.200, 0.169, 0.152, 0.141, 0.138),
 #'                          strip = c(0.000, 0.035, 0.045, 0.062, 0.069),

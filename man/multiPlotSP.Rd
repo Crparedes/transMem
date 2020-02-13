@@ -108,3 +108,8 @@ assigned to a variable for further modification.
               arw = TRUE, arw.pos = c(6.1, 6.1, 0.8, 0.6),
               arw.txt = 'Cycle', txt.pos = c(6.15, 0.7))
 }
+\author{
+Cristhian Paredes, \email{craparedesca@unal.edu.co}
+
+Eduardo Rodriguez de San Miguel, \email{erdsmg@unam.mx}
+}

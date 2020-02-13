@@ -35,6 +35,8 @@
 #'     permcoef(trans = reusecycles[[1]], vol = 85,
 #'              area = pi * 1.25^2, units = c('cm^3', 'cm^2', 'h'))
 #'   }
+#' @author Cristhian Paredes, \email{craparedesca@@unal.edu.co}
+#' @author Eduardo Rodriguez de San Miguel, \email{erdsmg@@unam.mx}
 #' @export
 
 

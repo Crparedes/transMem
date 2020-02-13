@@ -7,9 +7,9 @@
 conc2frac(feed, strip, time = NULL, correct.strip = FALSE, normalize = TRUE)
 }
 \arguments{
-\item{feed}{Numeric vector with concentrations in the feed phase}
+\item{feed}{Numeric vector with concentrations in the feed phase.}
 
-\item{strip}{Numeric vector with concentrations in the strip phase}
+\item{strip}{Numeric vector with concentrations in the strip phase.}
 
 \item{time}{Numeric vector with time at which the aliquots were
 sampled. It is an optional parameter, if not provided
@@ -25,7 +25,7 @@ significative or there is background noise.}
 
 \item{normalize}{Logical. If \code{TRUE}, the default, all
 concentrations are divided by the initial concentration
-in the feed phase to give results in fractions}
+in the feed phase to give results in fractions.}
 }
 \value{
 Data frame with the transport proccess information

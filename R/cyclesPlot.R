@@ -33,6 +33,8 @@
 #'   data(concentrationcycles)
 #'   cyclesPlot(trans = concentrationcycles,
 #'              ylab = expression(paste('Conc. (mg k', g^{-1}, ')')))
+#' @author Cristhian Paredes, \email{craparedesca@@unal.edu.co}
+#' @author Eduardo Rodriguez de San Miguel, \email{erdsmg@@unam.mx}
 #' @export
 #'
 

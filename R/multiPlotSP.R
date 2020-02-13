@@ -40,6 +40,8 @@
 #'               arw = TRUE, arw.pos = c(6.1, 6.1, 0.8, 0.6),
 #'               arw.txt = 'Cycle', txt.pos = c(6.15, 0.7))
 #' @import ggplot2
+#' @author Cristhian Paredes, \email{craparedesca@@unal.edu.co}
+#' @author Eduardo Rodriguez de San Miguel, \email{erdsmg@@unam.mx}
 #' @export
 
 multiPlotSP <- function(trans, phase = 'strip', trend = NULL, legend = FALSE,
