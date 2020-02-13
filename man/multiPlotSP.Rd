@@ -4,27 +4,11 @@
 \alias{multiPlotSP}
 \title{Plots several single-phase transport profiles overlayed}
 \usage{
-multiPlotSP(
-  trans,
-  phase = "strip",
-  trend = NULL,
-  legend = FALSE,
-  xlab = "Time (h)",
-  ylab = expression(Phi),
-  xlim = NULL,
-  ylim = NULL,
-  xbreaks = NULL,
-  ybreaks = NULL,
-  size = 3,
-  plot = TRUE,
-  shape = 15,
-  bw = FALSE,
-  arw = FALSE,
-  arw.pos = NULL,
-  arw.txt = NULL,
-  txt.pos = NULL,
-  txt.size = NULL
-)
+multiPlotSP(trans, phase = "strip", trend = NULL, legend = FALSE,
+  xlab = "Time (h)", ylab = expression(Phi), xlim = NULL, ylim = NULL,
+  xbreaks = NULL, ybreaks = NULL, size = 3, plot = TRUE, shape = 15,
+  bw = FALSE, arw = FALSE, arw.pos = NULL, arw.txt = NULL,
+  txt.pos = NULL, txt.size = NULL)
 }
 \arguments{
 \item{trans}{List of data frames with the complete transport
@@ -35,8 +19,8 @@ non-optional parameter.}
 \item{phase}{Phase to be represented in the plot: \code{'strip'},
 the default, or \code{'feed'}.}
 
-\item{trend}{List of Non-linear regression models of the main
-transport profile generated using \code{\link{transTrend}}.}
+\item{trend}{List of Non-linear regression models of the main species
+transport profil. Generated using \code{\link{transTrend}}.}
 
 \item{legend}{Logical. If \code{FALSE}, the default, the legend is not
 included.}
@@ -45,9 +29,9 @@ included.}
 
 \item{ylab}{Label to be used for y axis. Text and expression allowed.}
 
-\item{xlim}{Numeric vector of limits to be considered for X-axis.}
+\item{xlim}{Numeric vector of limits for X-axis.}
 
-\item{ylim}{Numeric vector of limits to be considered for X-axis.}
+\item{ylim}{Numeric vector of limits for X-axis.}
 
 \item{xbreaks}{Numeric vector of x-axis breaks.}
 
@@ -65,7 +49,7 @@ the plot is given. If a black and white version is
 required, it must be set to \code{TRUE}.}
 
 \item{arw}{Logical default to \code{FALSE}. If \code{TRUE}, a vertical
-arrow is drawed in the plot. Its use is reccomended when
+arrow is drawn in the plot. Its use is recommended when
 a trend along the profiles is to be indicated.}
 
 \item{arw.pos}{Numeric vector of the coordinates of the arrow if
@@ -78,10 +62,10 @@ provided in \code{arw.txt}. The format is (x, y). If not
 provided, the text is located close to the arrow but a
 little alignment could be required.}
 
-\item{txt.size}{Size of the text accompaining the arrow.}
+\item{txt.size}{Size of the text accompanying the arrow.}
 }
 \value{
-plot
+Plot with the overlayed transport profiles for a single phase
 }
 \description{
 Given a list of several complete transport data, the function overlays the

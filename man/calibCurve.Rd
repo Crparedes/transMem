@@ -11,15 +11,15 @@ calibCurve(curve, order = 1, badpoint = NULL, intercept = TRUE, plot = TRUE)
 containing the concentrations and the signals,
 respectively.}
 
-\item{order}{Regression curve order, 1 for linear (default) and 2 for
-quadratic. More options will be aviliable soon.}
+\item{order}{Regression curve order. 1 for linear (default) and 2 for
+quadratic. More options will be available soon.}
 
 \item{badpoint}{Numeric vector with the points to be ignored in the
-regresión. This allows the easy elimination of ouliers
-whithout losing the stored measurement information.}
+regresion. This allows the easy elimination of outliers
+without losing the stored measurement information.}
 
 \item{intercept}{Logical. If \code{TRUE}, the default, the intercept is
-calculated normally insthead of being forced to 0.}
+calculated normally instead of being forced to 0.}
 
 \item{plot}{Logical. If \code{TRUE}, the default, the calibration data
 is plotted.}
@@ -34,8 +34,8 @@ values. It also plots the obtained calibration curve if desired.
 }
 \details{
 A simple linear method (i.e \code{lm()}) is applied to obtain the
-regression curve. Model assumptions (e.g normal distribution of
-residuals) must be verified by the user.
+regression curve. Creates a data frame to be used as complete
+self-contained transport data set
 }
 \examples{
   data(curvelithium)

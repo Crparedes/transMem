@@ -1,7 +1,7 @@
 #' Plots transport profiles of single run experiments
 #'
 #' Given the transport complete information of the interest species and,
-#' optionally, seccondary and tertiary species, the function plots transport
+#' optionally, secondary and tertiary species, the function plots transport
 #' profiles including (if given) non-linear regression models that can be
 #' obtained using \code{\link{transTrend}}.
 #'
@@ -9,8 +9,8 @@
 #' \code{ggplot2} so the function returns a ggplot2 object that can be
 #' assigned to a variable for further modification.
 #'
-#' The function has a version that works for replicated experiments and
-#' may ilustrate repeteability. For more information see
+#' This function has a version that uses replicated experiments and
+#' may be useful to illustrate repeateability. For more information see
 #' \code{\link{transPlotWR}}.
 #'
 #' @references
@@ -32,16 +32,16 @@
 #'                  species data. Default is \code{'spline'} but
 #'                  \code{'linear'}, \code{'loess'} and \code{'logarithmic'}
 #'                  are also allowed.
-#' @param lin.secon Deprecated. Use \code{sec.trend = 'linear'} intshead.
+#' @param lin.secon Deprecated. Use \code{sec.trend = 'linear'} instead.
 #' @param span      Amount of smoothing when \code{sec.tred = 'loess'}. Is a
 #'                  value between 0 and 1. Default is 0.75
 #' @param legend    Logical. If \code{FALSE}, the default, the legend is not
 #'                  included.
 #' @param xlab      Label to be used for x axis. Text and expression allowed.
 #' @param ylab      Label to be used for y axis. Text and expression allowed.
-#' @param xlim      Numeric vector of limits to be considered for X-axis.
+#' @param xlim      Numeric vector of limits for X-axis.
 #' @param xbreaks   Numeric vector of x-axis breaks.
-#' @param ylim      Numeric vector of limits to be considered for X-axis.
+#' @param ylim      Numeric vector of limits for X-axis.
 #' @param ybreaks   Numeric vector of x-axis breaks.
 #' @param size      Size used for points in the plot.
 #' @param bw        Logical, if \code{FALSE}, the default, a color version of
@@ -49,11 +49,11 @@
 #'                  required, it must be set to \code{TRUE}.
 #' @param srs       Relative size of the void space in shapes of the plot
 #'                  when \code{bw = TRUE}. Needs to be adjusted according to
-#'                  the graphical device resolution and desired apparience.
+#'                  the graphical device resolution and desired appearance.
 #' @param plot      Logical. If \code{TRUE}, the default, the plot is printed
 #'                  in the current graphical device.
 #'
-#' @return Plot of the transport profile considering all provided species
+#' @return Plot of the transport profile considering all provided species.
 #' @importFrom grDevices hcl
 #' @import ggplot2 stats graphics ggformula
 #' @examples

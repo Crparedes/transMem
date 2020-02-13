@@ -4,17 +4,9 @@
 \alias{cyclesPlot}
 \title{Plots transport profiles for processes involving several cycles}
 \usage{
-cyclesPlot(
-  trans,
-  xlab = "Time (h)",
-  ylab = expression(Phi),
-  xlim = NULL,
-  ylim = NULL,
-  xbreaks = NULL,
-  ybreaks = NULL,
-  size = 1.8,
-  legend = FALSE
-)
+cyclesPlot(trans, xlab = "Time (h)", ylab = expression(Phi), xlim = NULL,
+  ylim = NULL, xbreaks = NULL, ybreaks = NULL, size = 1.8,
+  legend = FALSE)
 }
 \arguments{
 \item{trans}{List containing the (ordered) transport data of each cycle.
@@ -25,9 +17,9 @@ Each data frame must be generated using
 
 \item{ylab}{Label to be used for y axis. Text and expression allowed.}
 
-\item{xlim}{Numeric vector of limits to be considered for X-axis.}
+\item{xlim}{Numeric vector of limits for X-axis.}
 
-\item{ylim}{Numeric vector of limits to be considered for X-axis.}
+\item{ylim}{Numeric vector of limits for X-axis.}
 
 \item{xbreaks}{Numeric vector of x-axis breaks.}
 
@@ -39,17 +31,17 @@ Each data frame must be generated using
 included.}
 }
 \value{
-Plot of the transport process carried along several cycles
+Plot of the transport process carried in several cycles
 }
 \description{
 Given the data (data frames) of a transport process that was carried
 in several cycles (e.g. membrane reuse or metal concentration studies),
-plots the transport profiles like in a continous experiment indicating
+plots the transport profiles like in a continuous experiment indicating
 the end of each cycle
 }
 \details{
 If a concentration experiment has been made through the cycles, it is
-reccomended the y-axis to be in concentration scale insthead of fractions.
+recommended the y-axis to be in concentration scale instead of fractions.
 To get the transport data frame in concentration units use
 \code{conc2frac(..., normalize = FALSE)}. For more details see
 \code{\link{conc2frac}}.

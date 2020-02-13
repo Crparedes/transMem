@@ -1,9 +1,9 @@
 #' Plots transport profiles of replicated experiments
 #'
-#' The functions works the same way as \code{\link{transPlot}} but requires
+#' The function works the same way as \code{\link{transPlot}} but requires
 #' several experimental data sets that must be concatenated in lists.
-#' This allows the process reproducibility to be evaluated in the results
-#' analysis.
+#' This allows the process reproducibility to be evaluated in the analysis
+#' of the results.
 #'
 #' Most \code{transmem} graphical representations are made using the package
 #' \code{ggplot2} so the function returns a ggplot2 object that can be
@@ -19,8 +19,8 @@
 #'                  information of interest species. Must be generated
 #'                  using \code{\link{conc2frac}}. This is the only
 #'                  non-optional parameter.
-#' @param trend     List of Non-linear regression models of the main
-#'                  transport profile generated using \code{\link{transTrend}}.
+#' @param trend     List of Non-linear regression models of the main species
+#'                  transport profil. Generated using \code{\link{transTrend}}.
 #' @param secondary List of secondary species transport data frame (see
 #'                  \code{\link{conc2frac}}).
 #' @param tertiary  List of tertiary species transport data frame (see

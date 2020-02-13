@@ -2,11 +2,11 @@
 #'
 #' Given the data (data frames) of a transport process that was carried
 #' in several cycles (e.g. membrane reuse or metal concentration studies),
-#' plots the transport profiles like in a continous experiment indicating
+#' plots the transport profiles like in a continuous experiment indicating
 #' the end of each cycle
 #'
 #' If a concentration experiment has been made through the cycles, it is
-#' reccomended the y-axis to be in concentration scale insthead of fractions.
+#' recommended the y-axis to be in concentration scale instead of fractions.
 #' To get the transport data frame in concentration units use
 #' \code{conc2frac(..., normalize = FALSE)}. For more details see
 #' \code{\link{conc2frac}}.
@@ -26,7 +26,7 @@
 #'                  \code{\link{conc2frac}}.
 #' @inheritParams transPlotWR
 #'
-#' @return Plot of the transport process carried along several cycles
+#' @return Plot of the transport process carried in several cycles
 #' @import ggplot2 ggformula
 #' @example
 #'   # Concentration studies

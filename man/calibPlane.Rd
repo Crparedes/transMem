@@ -4,30 +4,20 @@
 \alias{calibPlane}
 \title{Calculates regression plane for external standard calibration.}
 \usage{
-calibPlane(
-  plane,
-  badpoint = NULL,
-  plot = TRUE,
-  lines = 13,
-  theta = -30,
-  phi = 40,
-  xlab = "Species 1",
-  ylab = "Species 2",
-  zlab = "Signal",
-  pch = 18,
-  cex = 2
-)
+calibPlane(plane, badpoint = NULL, plot = TRUE, lines = 13, theta = -30,
+  phi = 40, xlab = "Species 1", ylab = "Species 2", zlab = "Signal",
+  pch = 18, cex = 2)
 }
 \arguments{
 \item{plane}{Data frame of numeric vectors named 'Conc', 'Conc.S' and
 'Signal'. The vectors must contain the concentrations of
-the interest metal (the one whose concentration in the
-samples is to be known), the secondary metal (interferent)
-and the signals, respectively.}
+the main species (the one whose concentration in the
+samples is to be known) and the secondary species (the
+interferent), and the standard's signals, respectively.}
 
 \item{badpoint}{Numeric vector with the points to be ignored in the
-regresión. This allows the easy elimination of ouliers
-whithout losing the stored measurement information.}
+regresion. This allows the easy elimination of outliers
+without losing the stored measurement information.}
 
 \item{plot}{Logical. If \code{TRUE}, the default, the calibration data
 is plotted.}
@@ -38,9 +28,9 @@ is plotted.}
 
 \item{phi}{Altitude angle  at which the plane is visualized.}
 
-\item{xlab}{Label for Z axis (response).}
+\item{xlab}{Label for X axis (main species concentration).}
 
-\item{ylab}{Label for Z axis (response).}
+\item{ylab}{Label for Y axis (secondary species concentration).}
 
 \item{zlab}{Label for Z axis (response).}
 
@@ -55,15 +45,15 @@ Model of the calibration plane
 The function calculates the regression plane of external standard
 calibration to later use it to convert signals into concentration values.
 It differs from \code{\link{calibCurve}} in the number of explanatory
-variables which 2 in this case. This function is useful when some
+variables, 2 in this case. This function is useful when some
 interference effect is being considered (e.g signal magnification of
-lithium atomic absortion due to the precesnce of sodium in the sample).
+lithium atomic absorbance due to the presence of sodium in the sample).
 The calibration plane is plotted if desired.
 }
 \details{
 A simple linear method (i.e \code{lm()}) is applied to obtain the
-regression equation. Model assumptions (e.g normal distribution of
-residuals) must be verified by the user.
+regression equation. The user must verify model assumptions
+such as normal distribution of residuals.
 }
 \examples{
   data(planelithium)

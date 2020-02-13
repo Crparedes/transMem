@@ -16,11 +16,11 @@ parameter.}
 \code{'paredes'} but \code{'rodriguez'} also allowed.
 See details.}
 
-\item{eccen}{Eccentricity factor (\eqn{\gamma}) for model when
-\code{model} is set to \code{'paredes'}}
+\item{eccen}{Eccentricity factor (\eqn{\gamma}) for the model when
+\code{model} is set to \code{'paredes'}.}
 }
 \value{
-A list of 4 or 5 components (depending on the model choosen) with
+A list of 4 or 5 components (depending on the model chosen) with
         the regression information for each phase, the eccentricity factor
         (only in Paredes model), the name of the model used, and the
         sumarized results of the regression: \eqn{G_{feed}} and
@@ -30,11 +30,11 @@ A list of 4 or 5 components (depending on the model choosen) with
 }
 \description{
 Given a transport profile dataset, the results may be studied and
-comparated in terms of empirical functions that describe the transport
-process in terms of regression parameters that can be asociated to
+compared in terms of empirical functions that describe the transport
+process in terms of regression parameters that can be asociated with
 the performance of the membrane system. The parameters are obtained by
 non-linear regression and are independent for each solution at both sides
-of the membrane. This is particulary useful when performing system
+of the membrane. This is particularly useful when performing system
 optimizations since the parameters can be used as response variables
 depending on the optimization goal.
 }
@@ -43,46 +43,46 @@ Two empirical equations have been implemented in the function. In the
 \code{'rodriguez'} model (Rodriguez de San Miguel et al., 2014), the
 fractions (\eqn{\Phi}) in feed or
 strip phases as a function of time (\eqn{t}) are fitted to
-\deqn{\Phi=Ae^{-t/d}+y_0} where \eqn{A}, \eqn{d} and \eqn{y_0} are the
-parameters to be finded. In this model, parameter \eqn{d} determines the
+\deqn{\Phi(t)=Ae^{-t/d}+y_0} where \eqn{A}, \eqn{d} and \eqn{y_0} are the
+parameters to be found. In this model, parameter \eqn{d} determines the
 steepness of the species concentration change in time, \eqn{y_0} reflects
 the limiting value to which the profiles tend to at long pertraction
 times and \eqn{A} is not supposed to play an important role in the
 transport description. The parameters of each phase are summarized in
 the functions \eqn{G_{feed}} and \eqn{G_{strip}} for the feed and
-strip phases: \deqn{G_{feed}=\frac{1}{y_0d},\qquadG_{strip}=\frac{y_0}{d}}.
+strip phases: \deqn{G_{feed}=\frac{1}{y_0d},\qquad G_{strip}=\frac{y_0}{d}}
 The bigger each \eqn{G} function, the better the transport process.
 
 In the \code{'paredes'} model (Paredes and Rodriguez de San Miguel, 2020),
-the transported fraction to the strip solution and from the feed solution
+the transported fractions to the strip solution and from the feed solution
 are adjusted to the equations:
-\deqn{\Phi_s=\frac{\alpha_s t^\gamma}{\beta_s^{-1}+t^\gamma}}
-\deqn{\Phi_f=1-\frac{\alpha_f t^\gamma}{\beta_f^{-1}+t^\gamma}}
+\deqn{\Phi_s(t)=\frac{\alpha_s t^\gamma}{\beta_s^{-1}+t^\gamma}}
+\deqn{\Phi_f(t)=1-\frac{\alpha_f t^\gamma}{\beta_f^{-1}+t^\gamma}}
 respectively. In those equations, adjustable parameters \eqn{\alpha} and
 \eqn{\beta} relates the
-maximun fraction transported at long pertraction times and the steepness
-of the concentration change. \eqn{\gamma} is an excentricity factor to
-improve the adjustment and does not need to be changed for systems under
-similar conditions. The subscripts \eqn{s} and \eqn{f} means strip and
-feed phases, respectively.
+maximum fraction transported at long pertraction times and the steepness
+of the concentration change, respectively. \eqn{\gamma} is an excentricity
+factor to improve the adjustment and does not need to be changed for
+systems under similar conditions. The subscripts \eqn{s} and \eqn{f}
+means strip and feed phases, respectively.
 
 The later model has the disadvantage over the former that the equation
 to use depends on the phase to be modeled but has the great advantage
 that if no significant accumulation is presented in the membrane,
 the parameters \eqn{\alpha} and \eqn{\beta} should be quite similar for
-both phases and a consensus value can be obtained by various simple ways
+both phases and a consensus value can be obtained in various simple ways,
 while the other model yields quite diferent parameters for each phase.
-Paredes parameters are combined by using meta-analisys tools that considers
-the asociated uncertainty due to lack of fit to get summarized,
-lower-uncertainty results. In addition, once the \eqn{\gamma} parameter
-has been choosen, the later model uses only two parameters and while
+Paredes parameters are combined by using meta-analysis tools that consider
+the associated uncertainty of each one due to lack of fit to get summarized,
+lower-uncertainty results. Besides, once the \eqn{\gamma} parameter
+has been chosen, the later model uses only two parameters and while
 comparing models with similar performance, the simpler the better.
 }
 \references{
 E. Rodriguez de San Miguel, X. Vital, J. de Gyves, Cr(vi) transport via a
   sup ported ionic liquid membrane containing cyphos il101 as carrier:
   System analysis and optimization through experimental design strategies,
-  Journal of Hazardous Materials 273 (2014) 253 - 262.
+  Journal of Hazardous Materials 273 (2014) 253 - 262.\cr
   doi:10.1016/j.jhazmat.2014.03.052.
 
   C. Paredes, E. Rodriguez de San Miguel, Polymer inclusion membrane for

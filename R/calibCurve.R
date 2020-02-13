@@ -5,19 +5,19 @@
 #' values. It also plots the obtained calibration curve if desired.
 #'
 #' A simple linear method (i.e \code{lm()}) is applied to obtain the
-#' regression curve. Model assumptions (e.g normal distribution of
-#' residuals) must be verified by the user.
+#' regression curve. Creates a data frame to be used as complete
+#' self-contained transport data set
 #'
 #' @param curve     Data frame of numeric vectors named 'Conc' and 'Signal'
 #'                  containing the concentrations and the signals,
 #'                  respectively.
-#' @param order     Regression curve order, 1 for linear (default) and 2 for
-#'                  quadratic. More options will be aviliable soon.
+#' @param order     Regression curve order. 1 for linear (default) and 2 for
+#'                  quadratic. More options will be available soon.
 #' @param badpoint  Numeric vector with the points to be ignored in the
-#'                  regresión. This allows the easy elimination of ouliers
-#'                  whithout losing the stored measurement information.
+#'                  regresion. This allows the easy elimination of outliers
+#'                  without losing the stored measurement information.
 #' @param intercept Logical. If \code{TRUE}, the default, the intercept is
-#'                  calculated normally insthead of being forced to 0.
+#'                  calculated normally instead of being forced to 0.
 #' @param plot      Logical. If \code{TRUE}, the default, the calibration data
 #'                  is plotted.
 #' @return Model of the calibration curve.

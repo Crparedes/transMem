@@ -11,15 +11,21 @@ Authors@R: c(
 Author: Cristhian Paredes [aut, cre],
     Eduardo Rodriguez-de-San-Miguel [aut],
 Maintainer: Cristhian Paredes <craparedesca@unal.edu.co>
-Description: This package facilitates the summarization of useful information
-    about transport processes across a membrane. There are several generic
-    functions for data transformation (e.g. between instrumental signal and
-    transported fraction), non-linear regression using reported empirical 
-    equations for transport profiles modeling and generation of publication-ready transport profile plots.
+Description: This package provides tools for treating and visualizing the results 
+    from different experiments involving (selective) transport across membranes. 
+    Transport profiles involving up to three species can be easily obtained 
+    as publication-ready plots, several membrane performance parameters can be 
+    calculated and many experimental results can be easily studied through the 
+    package's graphical representations. The package allows the automatization 
+    of many routinary data-treatment tasks allowing the experimenter to focus 
+    on the more important issues of the research.
 License: GPL (>= 2)
+URL: https://github.com/Crparedes/transmem
+BugReports: https://github.com/Crparedes/transmem/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2.9000
+Roxygen: list(old_usage = TRUE)
 Depends: R (>= 3.5.0)
 Imports:
     cmna,

@@ -5,19 +5,20 @@
 #' interpolates the signals of samples to get the associated concentrations.
 #'
 #' @param signal   Numeric vector of signals to be interpolated.
-#' @param model    Regression model for the calibration. Must be obtained
+#' @param model    Regression model of the calibration. Must be obtained
 #'                 using \code{\link{calibCurve}} or \code{\link{calibPlane}}.
 #' @param dilution Numeric vector of dilution factors applied to samples
 #'                 before measurement
-#' @param planar   Logical, defalut to \code{FALSE}. It must be set to TRUE if
-#'                 more than one explicatory variable is used. A planar
-#'                 calibration model must be provided to \code{model}.
+#' @param planar   Logical, default to \code{FALSE}. It must be set to TRUE if
+#'                 more than one explanatory variable is used. A planar
+#'                 calibration model must be provided to \code{model}
+#'                 parameter.
 #' @param Conc.S   Numeric vector of the concentrations of the interferent
 #'                 species to be considered when a planar calibration model is
 #'                 provided to \code{model}. It is taken into account if
 #'                 \code{planar = TRUE}.
 #'
-#' @return Numeric vector of concentrations
+#' @return Numeric vector of species concentrations.
 #' @importFrom cmna quadratic2
 #' @examples
 #'   # A regression model is needed:

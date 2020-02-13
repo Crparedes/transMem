@@ -4,27 +4,11 @@
 \alias{transPlotWR}
 \title{Plots transport profiles of replicated experiments}
 \usage{
-transPlotWR(
-  trans,
-  trend = NULL,
-  secondary = NULL,
-  tertiary = NULL,
-  legend = FALSE,
-  xlab = "Time (h)",
-  ylab = expression(Phi),
-  xlim = NULL,
-  ylim = NULL,
-  xbreaks = NULL,
-  ybreaks = NULL,
-  lin.secon = FALSE,
-  sec.trend = "spline",
-  span = 0.75,
-  explicit = FALSE,
-  size = 3,
-  plot = TRUE,
-  bw = FALSE,
-  srs = 0.8
-)
+transPlotWR(trans, trend = NULL, secondary = NULL, tertiary = NULL,
+  legend = FALSE, xlab = "Time (h)", ylab = expression(Phi),
+  xlim = NULL, ylim = NULL, xbreaks = NULL, ybreaks = NULL,
+  lin.secon = FALSE, sec.trend = "spline", span = 0.75,
+  explicit = FALSE, size = 3, plot = TRUE, bw = FALSE, srs = 0.8)
 }
 \arguments{
 \item{trans}{List of data frames with the complete transport
@@ -32,8 +16,8 @@ information of interest species. Must be generated
 using \code{\link{conc2frac}}. This is the only
 non-optional parameter.}
 
-\item{trend}{List of Non-linear regression models of the main
-transport profile generated using \code{\link{transTrend}}.}
+\item{trend}{List of Non-linear regression models of the main species
+transport profil. Generated using \code{\link{transTrend}}.}
 
 \item{secondary}{List of secondary species transport data frame (see
 \code{\link{conc2frac}}).}
@@ -48,15 +32,15 @@ included.}
 
 \item{ylab}{Label to be used for y axis. Text and expression allowed.}
 
-\item{xlim}{Numeric vector of limits to be considered for X-axis.}
+\item{xlim}{Numeric vector of limits for X-axis.}
 
-\item{ylim}{Numeric vector of limits to be considered for X-axis.}
+\item{ylim}{Numeric vector of limits for X-axis.}
 
 \item{xbreaks}{Numeric vector of x-axis breaks.}
 
 \item{ybreaks}{Numeric vector of x-axis breaks.}
 
-\item{lin.secon}{Deprecated. Use \code{sec.trend = 'linear'} intshead.}
+\item{lin.secon}{Deprecated. Use \code{sec.trend = 'linear'} instead.}
 
 \item{sec.trend}{Type of trend line to be used for secondary and tertiary
 species data. Default is \code{'spline'} but
@@ -82,16 +66,16 @@ required, it must be set to \code{TRUE}.}
 
 \item{srs}{Relative size of the void space in shapes of the plot
 when \code{bw = TRUE}. Needs to be adjusted according to
-the graphical device resolution and desired apparience.}
+the graphical device resolution and desired appearance.}
 }
 \value{
 Plot of replicated transport profiles including all provided species
 }
 \description{
-The functions works the same way as \code{\link{transPlot}} but requires
+The function works the same way as \code{\link{transPlot}} but requires
 several experimental data sets that must be concatenated in lists.
-This allows the process reproducibility to be evaluated in the results
-analysis.
+This allows the process reproducibility to be evaluated in the analysis
+of the results.
 }
 \details{
 Most \code{transmem} graphical representations are made using the package

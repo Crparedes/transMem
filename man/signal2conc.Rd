@@ -9,15 +9,16 @@ signal2conc(signal, model, dilution = NULL, planar = FALSE, Conc.S = NULL)
 \arguments{
 \item{signal}{Numeric vector of signals to be interpolated.}
 
-\item{model}{Regression model for the calibration. Must be obtained
+\item{model}{Regression model of the calibration. Must be obtained
 using \code{\link{calibCurve}} or \code{\link{calibPlane}}.}
 
 \item{dilution}{Numeric vector of dilution factors applied to samples
 before measurement}
 
-\item{planar}{Logical, defalut to \code{FALSE}. It must be set to TRUE if
-more than one explicatory variable is used. A planar
-calibration model must be provided to \code{model}.}
+\item{planar}{Logical, default to \code{FALSE}. It must be set to TRUE if
+more than one explanatory variable is used. A planar
+calibration model must be provided to \code{model}
+parameter.}
 
 \item{Conc.S}{Numeric vector of the concentrations of the interferent
 species to be considered when a planar calibration model is
@@ -25,7 +26,7 @@ provided to \code{model}. It is taken into account if
 \code{planar = TRUE}.}
 }
 \value{
-Numeric vector of concentrations
+Numeric vector of species concentrations.
 }
 \description{
 After a calibration model is established (either by using

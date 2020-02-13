@@ -8,16 +8,18 @@
 #' using \code{\link{fixSecondary}} function and a message will be printed.
 #'
 #' Separation factor for batch systems at any time different from zero is
-#' defined as \deqn{SF_{A/B}(t)\frac{C_a/C_b}{C_a^0/C_b^0}} where \eqn{C_a}
+#' defined as \deqn{SF_{A/B}(t)=\frac{C_a/C_b}{C_a^0/C_b^0}} where \eqn{C_a}
 #' and \eqn{C_b} are the concentrations of A and B, respectively, in the
 #' strip solution at a time \eqn{t}, and \eqn{C_a^0} and \eqn{C_b^0} are
 #' the concentrations of A and B, respectively, in the feed phase at
-#' \eqn{t=0} (Chen et al., 2018). For continous or semicontinous systems,
+#' \eqn{t=0} (Chen et al., 2018).
+#'
+#' For continuous or semicontinuous systems,
 #' the separation factor is calculated according to the equation
-#' \deqn{SF_{A/B}(t)\frac{C_{a,~s}/C_{b,~s}}{C{a,~f}/C{b,~f}}} where
+#' \deqn{SF_{A/B}(t)\frac{C_{a,~s}/C_{b,~s}}{C_{a,~f}/C_{b,~f}}} where
 #' \eqn{C_{a,~s}}, \eqn{C_{b,~s}} are A and B concentrations in the
 #' strip phase at a time \eqn{t} and \eqn{C_{a,~f}}, \eqn{C_{b,~f}} are
-#' the concentration of A and B in the feed solution at a time \eqn{t}
+#' the concentrations of A and B in the feed solution at a time \eqn{t}
 #' (Koros and Shimidzu, 1996). Separation factor at \eqn{t=0} equals 1
 #' indicating that no species separation has occurred yet.
 #'
@@ -59,7 +61,7 @@
 
 
 sepfactor <- function (main, secon, order = 2, mode = 'batch', plot = TRUE) {
-
+  SF <- NULL
   time_A <- main[which(main$Phase == "Strip"), 1]
   time_B <- secon[which(secon$Phase == "Strip"), 1]
   B_f <- secon[which(secon$Phase == "Feed"), 3]

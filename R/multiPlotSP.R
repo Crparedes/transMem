@@ -11,7 +11,7 @@
 #' @param phase     Phase to be represented in the plot: \code{'strip'},
 #'                  the default, or \code{'feed'}.
 #' @param arw       Logical default to \code{FALSE}. If \code{TRUE}, a vertical
-#'                  arrow is drawed in the plot. Its use is reccomended when
+#'                  arrow is drawn in the plot. Its use is recommended when
 #'                  a trend along the profiles is to be indicated.
 #' @param arw.pos   Numeric vector of the coordinates of the arrow if
 #'                  \code{arw = TRUE}. The format is (x0, x1, y0, y1)
@@ -20,11 +20,11 @@
 #'                  provided in \code{arw.txt}. The format is (x, y). If not
 #'                  provided, the text is located close to the arrow but a
 #'                  little alignment could be required.
-#' @param txt.size  Size of the text accompaining the arrow.
+#' @param txt.size  Size of the text accompanying the arrow.
 #' @param shape     Shape to use in the points to be plotted.
 #' @inheritParams transPlotWR
 # #' @inheritParams transPlot
-#' @return plot
+#' @return Plot with the overlayed transport profiles for a single phase
 #' @examples
 #'   data(reusecycles)
 #'   # First step is to get trend lines for each cycle:

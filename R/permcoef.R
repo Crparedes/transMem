@@ -2,28 +2,28 @@
 #'
 #' Permeability coefficients across a membrane as derived from integrated
 #' Fick's law can be obtained from transport data according to the equation
-#' \deqn{\ln{\Bigg(\frac{C_{\ce{Li+}}}{C_{\ce{Li+}}^0}\Bigg)}=
+#' \deqn{\ln{\Bigg(\frac{C}{C^0}\Bigg)}=
 #' -\frac{P~a}{V}t} where \eqn{P} is the permeability coefficient, \eqn{a} is
-#' the membrane exposed area, \eqn{C_{\ce{Li+}}} and \eqn{C_{\ce{Li+}}^0} are
-#' lithium concentrations at any time and at initial time in the feed phase,
+#' the membrane exposed area, \eqn{C} and \eqn{C^0} are
+#' the species concentrations at any time and at initial time in the feed phase,
 #' respectively, and \eqn{V} is solution volume.
 #'
 #' Species concentration units may be arbitrary as long as the permeability
 #' coefficient is calculated using the change in concentration ratio which is,
-#' as most ratios, adimentional.
+#' as most ratios, adimensional
 #'
 #' @param trans  Data frame with the complete transport information of
 #'               interest species. Must be generated using
 #'               \code{\link{conc2frac}}.
-#' @param conc0  Initial concentration of the species in feed solution. The
-#'               value may be extracted from transport information if data
+#' @param conc0  Initial concentration of the species in the feed solution. The
+#'               value may be extracted from transport information if the data
 #'               frame provided in \code{trans} is not normalized. See
 #'               \code{\link{conc2frac}} for details.
-#' @param vol    Volume of feed solution.
+#' @param vol    Volume of the feed solution.
 #' @param area   Membrane exposed area to the feed solution.
 #' @param units  Units in which volume, area and time are provided. Volume
 #'               and area are function's parameters while the time is
-#'               extracted from \code{trans} data frame.
+#'               extracted from the \code{trans} data frame.
 #'
 #' @return Premeability coefficient for species in meters per second.
 #' @example

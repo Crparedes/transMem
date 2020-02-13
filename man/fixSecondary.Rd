@@ -2,7 +2,7 @@
 % Please edit documentation in R/fixSecondary.R
 \name{fixSecondary}
 \alias{fixSecondary}
-\title{Interpolates seccondary species concentration at missing time values}
+\title{Interpolates secondary species concentration at missing time values}
 \usage{
 fixSecondary(conc, time, compTime, order = 2)
 }
@@ -14,7 +14,7 @@ fixSecondary(conc, time, compTime, order = 2)
 \item{compTime}{Times at which the given species concentration must be
 interpolated.}
 
-\item{order}{Order of the polinomia to be fitted to data (1 or 2).
+\item{order}{Order of the polynomial to be fitted to data (1 or 2).
 Default to 2.}
 }
 \value{
@@ -22,8 +22,8 @@ Vector of interpolated concentrations at times provided in
         \code{compTime}.
 }
 \description{
-If the seccondary species concentration is determinied in just a fraction
-of the aliquots and for some reason the concentration in all the aliquots
+If the secondary species concentration is determined in just a fraction
+of the aliquots and for some reason, the concentration in all the aliquots
 is required or desired, the function fits a polynomial trend line to the
 existing data and interpolates the concentration in missing aliquots.
 }

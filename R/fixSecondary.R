@@ -1,7 +1,7 @@
-#' Interpolates seccondary species concentration at missing time values
+#' Interpolates secondary species concentration at missing time values
 #'
-#' If the seccondary species concentration is determinied in just a fraction
-#' of the aliquots and for some reason the concentration in all the aliquots
+#' If the secondary species concentration is determined in just a fraction
+#' of the aliquots and for some reason, the concentration in all the aliquots
 #' is required or desired, the function fits a polynomial trend line to the
 #' existing data and interpolates the concentration in missing aliquots.
 #'
@@ -9,7 +9,7 @@
 #' @param time      Times at which given concentrations were determined.
 #' @param compTime  Times at which the given species concentration must be
 #'                  interpolated.
-#' @param order     Order of the polinomia to be fitted to data (1 or 2).
+#' @param order     Order of the polynomial to be fitted to data (1 or 2).
 #'                  Default to 2.
 #' @return Vector of interpolated concentrations at times provided in
 #'         \code{compTime}.

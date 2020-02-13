@@ -3,23 +3,23 @@
 #' The function calculates the regression plane of external standard
 #' calibration to later use it to convert signals into concentration values.
 #' It differs from \code{\link{calibCurve}} in the number of explanatory
-#' variables which 2 in this case. This function is useful when some
+#' variables, 2 in this case. This function is useful when some
 #' interference effect is being considered (e.g signal magnification of
-#' lithium atomic absortion due to the precesnce of sodium in the sample).
+#' lithium atomic absorbance due to the presence of sodium in the sample).
 #' The calibration plane is plotted if desired.
 #'
 #' A simple linear method (i.e \code{lm()}) is applied to obtain the
-#' regression equation. Model assumptions (e.g normal distribution of
-#' residuals) must be verified by the user.
+#' regression equation. The user must verify model assumptions
+#' such as normal distribution of residuals.
 #'
 #' @param plane  Data frame of numeric vectors named 'Conc', 'Conc.S' and
 #'               'Signal'. The vectors must contain the concentrations of
-#'               the interest metal (the one whose concentration in the
-#'               samples is to be known), the secondary metal (interferent)
-#'               and the signals, respectively.
+#'               the main species (the one whose concentration in the
+#'               samples is to be known) and the secondary species (the
+#'               interferent), and the standard's signals, respectively.
 #' @param lines  Number of lines to use in the mesh of the plane in the plot.
-#' @param xlab   Label for Z axis (response).
-#' @param ylab   Label for Z axis (response).
+#' @param xlab   Label for X axis (main species concentration).
+#' @param ylab   Label for Y axis (secondary species concentration).
 #' @param zlab   Label for Z axis (response).
 #' @param pch    Plotting symbols available in R.
 #' @param cex    The size of pch symbols.
