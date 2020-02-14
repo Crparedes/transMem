@@ -18,5 +18,5 @@ on the more important issues of the research.
 You can install the released version of transmem from [github](https://github.com/Crparedes/transmem) with:
 
 ``` r
-devtools::install_github(url = "git://github.com/Crparedes/transmem")
+devtools::install_github("Crparedes/transmem")
 ```
