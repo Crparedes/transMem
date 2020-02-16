@@ -2,7 +2,7 @@ Package: transmem
 Version: 0.1.0
 Type: Package
 Date: 2020-2-13
-Title: Functions for the Treatment of Membrane-Transport Data
+Title: Tools for the Treatment of Membrane-Transport Data
 Authors@R: c(
     person("Cristhian", "Paredes", email = "craparedesca@unal.edu.co",
     role = c("aut", "cre")),
