@@ -72,7 +72,7 @@
 #' @author Eduardo Rodriguez de San Miguel, \email{erdsmg@@unam.mx}
 #' @export
 
-transPlot <- function(trans, trend = NULL, secondary = FALSE, tertiary = NULL,
+transPlot <- function(trans, trend = NULL, secondary = NULL, tertiary = NULL,
                       sec.trend = 'spline', lin.secon = FALSE, span = 0.75,
                       legend = FALSE, xlab = 'Time (h)',
                       ylab = expression(Phi), xlim = NULL, ylim = NULL,
@@ -95,10 +95,10 @@ transPlot <- function(trans, trend = NULL, secondary = FALSE, tertiary = NULL,
       trend <- list(trend)
       if (bw) colbw <- c("black", "black") else colbw <- c("red", "black")
       p <- p + stat_function(fun = AddParTrend(trend, 1, 'strip', e),
-                             color = colbw[1],
+                             color = colbw[1], args = list(i = 1),
                              xlim = c(0, trans$Time[length(trans$Time)])) +
         stat_function(fun = AddParTrend(trend, 1, 'feed', e),
-                      color = colbw[2],
+                      color = colbw[2],  args = list(i = 1),
                       xlim = c(0, trans$Time[length(trans$Time)]))
     }
   }
