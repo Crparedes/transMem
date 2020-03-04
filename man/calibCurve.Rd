@@ -12,7 +12,7 @@ containing the concentrations and the signals,
 respectively.}
 
 \item{order}{Regression curve order. 1 for linear (default) and 2 for
-quadratic. More options will be available soon.}
+quadratic.}
 
 \item{badpoint}{Numeric vector with the points to be ignored in the
 regresion. This allows the easy elimination of outliers
@@ -28,14 +28,12 @@ is plotted.}
 Model of the calibration curve.
 }
 \description{
-The function calculates the regression curve of external standard
-calibration to later use it to convert signals into concentration
-values. It also plots the obtained calibration curve if desired.
+Polinomial regression curves for external standard calibration are
+calculated to later convert signals into concentration values.
 }
 \details{
-A simple linear method (i.e \code{lm()}) is applied to obtain the
-regression curve. Creates a data frame to be used as complete
-self-contained transport data set
+A linear method (i.e \code{lm()}) is applied to obtain the
+regression curve.
 }
 \examples{
   data(curvelithium)

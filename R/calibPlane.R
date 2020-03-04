@@ -1,14 +1,14 @@
 #' Calculates regression plane for external standard calibration.
 #'
-#' The function calculates the regression plane of external standard
-#' calibration to later use it to convert signals into concentration values.
+#' A bivariated regression plane for external standard calibration is
+#' calculated to later convert signals into concentration values.
 #' It differs from \code{\link{calibCurve}} in the number of explanatory
 #' variables, 2 in this case. This function is useful when some
-#' interference effect is being considered (e.g signal magnification of
-#' lithium atomic absorbance due to the presence of sodium in the sample).
-#' The calibration plane is plotted if desired.
+#' interference effect is being considered such as the magnification of
+#' the interest species signal due to the presence of another (known) species
+#' in the same sample.
 #'
-#' A simple linear method (i.e \code{lm()}) is applied to obtain the
+#' A linear method (i.e \code{lm()}) is applied to obtain the
 #' regression equation. The user must verify model assumptions
 #' such as normal distribution of residuals.
 #'

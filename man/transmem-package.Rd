@@ -3,16 +3,17 @@
 \docType{package}
 \name{transmem-package}
 \alias{transmem-package}
-\title{transmem: General tools to manipulate and visualize membrane processes data.}
+\title{transmem: Treatment of membrane-transport data.}
 \description{
-This package provides tools for treating and visualizing the results
-from different experiments involving (selective) transport across membranes.
-Transport profiles involving up to three species can be easily obtained
-as publication-ready plots, several membrane performance parameters can be
-calculated and many experimental results can be easily studied through the
-package's graphical representations. The package allows the automatization
-of many routinary data-treatment tasks allowing the experimenter to focus
-on the more important issues of the research.
+Treatment and visualization of membrane (selective) transport
+data. Transport profiles involving up to three species are produced as
+publication-ready plots and several membrane performance parameters
+(e.g. separation factors as defined in 'Koros et al.' (1996)
+<doi:10.1351/pac199668071479> and non-linear regression parameters
+for the equations described in 'Rodriguez de San Miguel et al.' (2014)
+<doi:10.1016/j.jhazmat.2014.03.052>) can be obtained. Many widely used
+experimental setups (e.g. membrane physical aging) can be easily studied
+through the package's graphical representations.
 }
 \references{
 C. Paredes, E. Rodriguez de San Miguel, Polymer inclusion membrane for

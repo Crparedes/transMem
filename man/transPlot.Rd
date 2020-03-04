@@ -4,7 +4,7 @@
 \alias{transPlot}
 \title{Plots transport profiles of single run experiments}
 \usage{
-transPlot(trans, trend = NULL, secondary = FALSE, tertiary = NULL,
+transPlot(trans, trend = NULL, secondary = NULL, tertiary = NULL,
   sec.trend = "spline", lin.secon = FALSE, span = 0.75, legend = FALSE,
   xlab = "Time (h)", ylab = expression(Phi), xlim = NULL, ylim = NULL,
   xbreaks = NULL, ybreaks = NULL, size = 2.8, bw = FALSE, srs = 0.8,
