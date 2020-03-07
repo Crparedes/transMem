@@ -96,174 +96,172 @@ transPlotWR <- function(trans, trend = NULL, secondary = NULL, tertiary = NULL,
       }
     }
 
-      if (!missing(secondary)) {
-        for (i in 1:length(secondary)) {
-          secondary[[i]]$Phase <- paste0(secondary[[i]]$Phase, ".")
-          if (sec.trend == 'linear') {
-            p <- p + scale_shape_identity() +
-              geom_smooth(method = "lm", data = secondary[[i]], se = FALSE,
-                          size = 0.5, aes(x = Time, y = Fraction,
-                                          group = Phase, color = Phase))
-          }
-          if (sec.trend == 'spline') {
-            p <- p + scale_shape_identity() +
-              geom_spline(data = secondary[[i]], spar = 0.7, size = 0.5,
-                          aes(x = Time, y = Fraction, group = Phase,
-                              color = Phase))
-          }
-          if (sec.trend == 'logarithmic') { #Still under implementation
-            p <- p + scale_shape_identity() +
-              stat_smooth(data = secondary[[i]], method = "lm",
-                          formula = y ~ log(x), size = 0.5, se = FALSE,
-                          aes(x = Time, y = Fraction, group = Phase,
-                              color = Phase))
-          }
-          if (sec.trend == 'loess') {
-            p <- p + scale_shape_identity() +
-              stat_smooth(data = secondary[[i]], method = "loess",
-                          span = span, size = 0.5, se = FALSE,
-                          aes(x = Time, y = Fraction, group = Phase,
-                              color = Phase))
-          }
-          if (bw) {
-            p <- p + geom_point(data = secondary[[i]], size = 3,
-                                aes(x = Time, y = Fraction,
-                                    group = Phase, shape = 17, color = Phase))
-          } else {
-            p <- p + geom_point(data = secondary[[i]], size = 3,
-                                aes(x = Time, y = Fraction,
-                                    group = Phase, shape = 17, color = Phase))
-          }
-        }
-      }
-    } else {
-      mtrans <- transColapse(trans = trans)
-      eccen <- trend[[1]]$eccen
-      mtrend <- list(transTrend(trans = mtrans, model = 'paredes',
-                                eccen = eccen))
-
-      if (bw) colbw <- c("black", "black") else colbw <- c("red", "black")
-
-      p <- ggplot(data = mtrans, aes(x = Time, y = Fraction, group = Phase)) +
-        theme_bw() + geom_point(size = size, shape = 15, aes(color = Phase)) +
-        labs(y = expression(Phi), x = 'Time (h)') +
-        theme(panel.grid.major = element_blank(),
-              panel.grid.minor = element_blank(),
-              axis.text.x = element_text(color = "black"),
-              axis.text.y = element_text(color = "black")) +
-        stat_function(fun = AddParTrend(mtrend, 1, 'strip', eccen),
-                      color = colbw[1], args = (i = 1),
-                      xlim = c(0, mtrans$Time[length(mtrans$Time)])) +
-        stat_function(fun = AddParTrend(mtrend, 1, 'feed', eccen),
-                      color = colbw[2], args = (i = 1),
-                      xlim = c(0, mtrans$Time[length(mtrans$Time)]))
-      p <- p + geom_errorbar(aes(x = Time, ymin = Fraction - SD,
-                                 ymax = Fraction + SD, color = Phase),
-                             width = 0.1)
-
-      if (bw) {
-        p <- p + geom_point(data = mtrans[which(mtrans$Phase == 'Strip'), ],
-                            col = 'white', size = size*srs,
-                            aes(x = Time, y = Fraction), shape = 15)
-      }
-
-      if (!missing(secondary)) {
-        msecon <- transColapse(trans = secondary)
-        msecon$Phase <- paste0(msecon$Phase, ".")
+    if (!missing(secondary)) {
+      for (i in 1:length(secondary)) {
+        secondary[[i]]$Phase <- paste0(secondary[[i]]$Phase, ".")
         if (sec.trend == 'linear') {
           p <- p + scale_shape_identity() +
-            geom_smooth(method = "lm", data = msecon, se = FALSE, size = 0.5,
-                        aes(x = Time, y = Fraction, group = Phase,
-                            color = Phase))
+            geom_smooth(method = "lm", data = secondary[[i]], se = FALSE,
+                        size = 0.5, aes(x = Time, y = Fraction,
+                                        group = Phase, color = Phase))
         }
         if (sec.trend == 'spline') {
           p <- p + scale_shape_identity() +
-            ggformula::geom_spline(data = msecon, spar = 0.7, size = 0.5,
-                                   aes(x = Time, y = Fraction, group = Phase,
-                                       color = Phase))
-        }
-        if (sec.trend == 'logarithmic') { #Still under implementation
-          p <- p + scale_shape_identity() +
-            stat_smooth(data = msecon, method = "lm", formula = y ~ log(x),
-                        size = 0.5,
-                        se = FALSE, aes(x = Time, y = Fraction,
-                                        group = Phase, color = Phase))
-        }
-        if (sec.trend == 'loess') {
-          p <- p + scale_shape_identity() +
-            stat_smooth(data = msecon, method = "loess", span = span,
-                        size = 0.5, se = FALSE,
+            geom_spline(data = secondary[[i]], spar = 0.7, size = 0.5,
                         aes(x = Time, y = Fraction, group = Phase,
                             color = Phase))
         }
-
-        p <- p + geom_errorbar(data = msecon,
-                               aes(x = Time, ymin = Fraction - SD,
-                                   ymax = Fraction + SD, color = Phase),
-                               width = 0.1)
+        if (sec.trend == 'logarithmic') { #Still under implementation
+          p <- p + scale_shape_identity() +
+            stat_smooth(data = secondary[[i]], method = "lm",
+                        formula = y ~ log(x), size = 0.5, se = FALSE,
+                        aes(x = Time, y = Fraction, group = Phase,
+                            color = Phase))
+        }
+        if (sec.trend == 'loess') {
+          p <- p + scale_shape_identity() +
+            stat_smooth(data = secondary[[i]], method = "loess",
+                        span = span, size = 0.5, se = FALSE,
+                        aes(x = Time, y = Fraction, group = Phase,
+                            color = Phase))
+        }
         if (bw) {
-          p <- p + geom_point(data = msecon, size = size,
-                              aes(x = Time, y = Fraction), shape = 17,
-                              color = 'black')
-          p <- p + geom_point(data = msecon[which(msecon$Phase == 'Strip.'), ],
-                              size = size * srs,
-                              aes(x = Time, y = Fraction), shape = 17,
-                              color = 'white')
+          p <- p + geom_point(data = secondary[[i]], size = 3,
+                              aes(x = Time, y = Fraction,
+                                  group = Phase, shape = 17, color = Phase))
         } else {
-          p <- p + geom_point(data = msecon, size = 3,
+          p <- p + geom_point(data = secondary[[i]], size = 3,
                               aes(x = Time, y = Fraction,
                                   group = Phase, shape = 17, color = Phase))
         }
       }
-      if (!missing(tertiary)) {
-        mterna <- transColapse(trans = tertiary)
-        mterna$Phase <- paste0(mterna$Phase, ".")
-        if (sec.trend == 'linear') {
-          p <- p + scale_shape_identity() +
-            geom_smooth(method = "lm", data = mterna, se = FALSE, size = 0.5,
-                        aes(x = Time, y = Fraction, group = Phase,
-                            color = Phase))
-        }
-        if (sec.trend == 'spline') {
-          p <- p + scale_shape_identity() +
-            ggformula::geom_spline(data = mterna, spar = 0.7, size = 0.5,
-                                   aes(x = Time, y = Fraction, group = Phase,
-                                       color = Phase))
-        }
-        if (sec.trend == 'logarithmic') { #Still under implementation
-          p <- p + scale_shape_identity() +
-            stat_smooth(data = mterna, method = "lm", formula = y ~ log(x),
-                        size = 0.5, se = FALSE,
-                        aes(x = Time, y = Fraction, group = Phase,
-                            color = Phase))
-        }
-        if (sec.trend == 'loess') {
-          p <- p + scale_shape_identity() +
-            stat_smooth(data = mterna, method = "loess", span = span,
-                        size = 0.5, se = FALSE,
-                        aes(x = Time, y = Fraction, group = Phase,
-                            color = Phase))
-        }
-        p <- p + geom_errorbar(data = mterna,
-                               aes(x = Time, ymin = Fraction - SD,
-                                   ymax = Fraction + SD, color = Phase),
-                               width = 0.1)
-        if (bw) {
-          p <- p + geom_point(data = mterna, size = size,
-                              aes(x = Time, y = Fraction), shape = 16,
-                              color = 'black')
-          p <- p + geom_point(data = mterna[which(mterna$Phase == 'Strip.'), ],
-                              size = size * srs,
-                              aes(x = Time, y = Fraction), shape = 16,
-                              color = 'white')
-        } else {
-          p <- p + geom_point(data = mterna, size = 3,
-                              aes(x = Time, y = Fraction,
-                                  group = Phase, shape = 16, color = Phase))
-        }
-      }
+    }
+  } else {
+    mtrans <- transColapse(trans = trans)
+    e <- trend[[1]]$eccen
+    mtrend <- list(transTrend(trans = mtrans, model = 'paredes',
+                              eccen = e))
+
+    if (bw) colbw <- c("black", "black") else colbw <- c("red", "black")
+
+    p <- ggplot(data = mtrans, aes(x = Time, y = Fraction, group = Phase)) +
+      theme_bw() + geom_point(size = size, shape = 15, aes(color = Phase)) +
+      labs(y = ylab, x = xlab) +
+      theme(panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            axis.text.x = element_text(color = "black"),
+            axis.text.y = element_text(color = "black")) +
+      stat_function(fun = AddParTrend(mtrend, 1, 'strip', eccen),
+                    color = colbw[1], args = (i = 1),
+                    xlim = c(0, mtrans$Time[length(mtrans$Time)])) +
+      stat_function(fun = AddParTrend(mtrend, 1, 'feed', eccen),
+                    color = colbw[2], args = (i = 1),
+                    xlim = c(0, mtrans$Time[length(mtrans$Time)]))
+      p <- p + geom_errorbar(aes(x = Time, ymin = Fraction - SD,
+                                 ymax = Fraction + SD, color = Phase),
+                             width = 0.1)
+
+    if (bw) {
+      p <- p + geom_point(data = mtrans[which(mtrans$Phase == 'Strip'), ],
+                          col = 'white', size = size*srs,
+                          aes(x = Time, y = Fraction), shape = 15)
     }
 
+    if (!missing(secondary)) {
+      msecon <- transColapse(trans = secondary)
+      msecon$Phase <- paste0(msecon$Phase, ".")
+      if (sec.trend == 'linear') {
+        p <- p + scale_shape_identity() +
+          geom_smooth(method = "lm", data = msecon, se = FALSE, size = 0.5,
+                      aes(x = Time, y = Fraction, group = Phase,
+                          color = Phase))
+      }
+      if (sec.trend == 'spline') {
+        p <- p + scale_shape_identity() +
+          ggformula::geom_spline(data = msecon, spar = 0.7, size = 0.5,
+                                 aes(x = Time, y = Fraction, group = Phase,
+                                     color = Phase))
+      }
+      if (sec.trend == 'logarithmic') { #Still under implementation
+        p <- p + scale_shape_identity() +
+          stat_smooth(data = msecon, method = "lm", formula = y ~ log(x),
+                      size = 0.5,
+                      se = FALSE, aes(x = Time, y = Fraction,
+                                      group = Phase, color = Phase))
+      }
+      if (sec.trend == 'loess') {
+        p <- p + scale_shape_identity() +
+          stat_smooth(data = msecon, method = "loess", span = span,
+                      size = 0.5, se = FALSE,
+                      aes(x = Time, y = Fraction, group = Phase,
+                          color = Phase))
+      }
+        p <- p + geom_errorbar(data = msecon,
+                             aes(x = Time, ymin = Fraction - SD,
+                                 ymax = Fraction + SD, color = Phase),
+                             width = 0.1)
+      if (bw) {
+        p <- p + geom_point(data = msecon, size = size,
+                            aes(x = Time, y = Fraction), shape = 17,
+                            color = 'black')
+        p <- p + geom_point(data = msecon[which(msecon$Phase == 'Strip.'), ],
+                            size = size * srs,
+                            aes(x = Time, y = Fraction), shape = 17,
+                            color = 'white')
+      } else {
+        p <- p + geom_point(data = msecon, size = 3,
+                            aes(x = Time, y = Fraction,
+                                group = Phase, shape = 17, color = Phase))
+      }
+    }
+    if (!missing(tertiary)) {
+      mterna <- transColapse(trans = tertiary)
+      mterna$Phase <- paste0(mterna$Phase, ".")
+      if (sec.trend == 'linear') {
+        p <- p + scale_shape_identity() +
+          geom_smooth(method = "lm", data = mterna, se = FALSE, size = 0.5,
+                      aes(x = Time, y = Fraction, group = Phase,
+                          color = Phase))
+      }
+      if (sec.trend == 'spline') {
+        p <- p + scale_shape_identity() +
+          ggformula::geom_spline(data = mterna, spar = 0.7, size = 0.5,
+                                 aes(x = Time, y = Fraction, group = Phase,
+                                     color = Phase))
+      }
+      if (sec.trend == 'logarithmic') { #Still under implementation
+        p <- p + scale_shape_identity() +
+          stat_smooth(data = mterna, method = "lm", formula = y ~ log(x),
+                      size = 0.5, se = FALSE,
+                      aes(x = Time, y = Fraction, group = Phase,
+                          color = Phase))
+      }
+      if (sec.trend == 'loess') {
+        p <- p + scale_shape_identity() +
+          stat_smooth(data = mterna, method = "loess", span = span,
+                      size = 0.5, se = FALSE,
+                      aes(x = Time, y = Fraction, group = Phase,
+                          color = Phase))
+      }
+      p <- p + geom_errorbar(data = mterna,
+                             aes(x = Time, ymin = Fraction - SD,
+                                 ymax = Fraction + SD, color = Phase),
+                             width = 0.1)
+      if (bw) {
+        p <- p + geom_point(data = mterna, size = size,
+                            aes(x = Time, y = Fraction), shape = 16,
+                            color = 'black')
+        p <- p + geom_point(data = mterna[which(mterna$Phase == 'Strip.'), ],
+                            size = size * srs,
+                            aes(x = Time, y = Fraction), shape = 16,
+                            color = 'white')
+      } else {
+        p <- p + geom_point(data = mterna, size = 3,
+                            aes(x = Time, y = Fraction,
+                                group = Phase, shape = 16, color = Phase))
+      }
+    }
+  }
   if (!missing(xlim) && !missing(xbreaks)) {
     p <- p  + scale_x_continuous(breaks = xbreaks, limits = xlim)
   } else {
