@@ -8,9 +8,9 @@
 Treatment and visualization of membrane (selective) transport
 data. Transport profiles involving up to three species are produced as
 publication-ready plots and several membrane performance parameters
-(e.g. separation factors as defined in 'Koros et al.' (1996)
+(e.g. separation factors as defined in Koros et al. (1996)
 <doi:10.1351/pac199668071479> and non-linear regression parameters
-for the equations described in 'Rodriguez de San Miguel et al.' (2014)
+for the equations described in Rodriguez de San Miguel et al. (2014)
 <doi:10.1016/j.jhazmat.2014.03.052>) can be obtained. Many widely used
 experimental setups (e.g. membrane physical aging) can be easily studied
 through the package's graphical representations.
