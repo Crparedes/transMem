@@ -6,4 +6,7 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release.
+### 1 note:
+The note refers to an (possibly) invalid DOIs:
+  DOI: 10.1351/pac199668071479
+The DOI has been checked and is correct
